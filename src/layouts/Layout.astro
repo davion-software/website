@@ -1,0 +1,63 @@
+---
+import { Font } from "astro:assets";
+import Lockup from "../components/Lockup.astro";
+import { brand, home, nav } from "../content/home";
+import "../styles/global.css";
+
+interface Props {
+  title?: string;
+  description?: string;
+}
+
+const { title = brand.name, description = home.oneLiner } = Astro.props;
+---
+
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content={description} />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <Font cssVariable="--font-inter" preload />
+    <title>{title}</title>
+  </head>
+  <body class="font-sans min-h-dvh bg-charcoal text-soft-white">
+    <a
+      href="#contenido"
+      class="sr-only focus:not-sr-only focus:absolute focus:left-4 focus:top-4 focus:z-50 focus:bg-steel focus:px-3 focus:py-2"
+    >
+      Saltar al contenido
+    </a>
+    <header class="border-b border-steel">
+      <div
+        class="mx-auto flex max-w-6xl flex-col gap-4 px-5 py-5 sm:flex-row sm:items-center sm:justify-between sm:px-8"
+      >
+        <Lockup />
+        <nav
+          aria-label="Principal"
+          class="flex flex-wrap items-center gap-x-5 gap-y-2 text-sm"
+        >
+          {
+            nav.map((item) => (
+              <a href={item.href} class="text-soft-white no-underline">
+                {item.label}
+              </a>
+            ))
+          }
+        </nav>
+      </div>
+    </header>
+    <main id="contenido">
+      <slot />
+    </main>
+    <footer class="border-t border-steel">
+      <div
+        class="mx-auto flex max-w-6xl flex-col gap-3 px-5 py-8 sm:flex-row sm:items-center sm:justify-between sm:px-8"
+      >
+        <Lockup />
+        <p class="text-sm text-soft-white">{home.footerStudio}</p>
+      </div>
+    </footer>
+  </body>
+</html>
