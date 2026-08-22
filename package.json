@@ -12,15 +12,18 @@
     "preview": "astro preview",
     "check": "astro check",
     "astro": "astro",
-    "test:copy": "node scripts/assert-home-copy.mjs"
+    "test:copy": "node scripts/assert-home-copy.mjs",
+    "preview:cloudflare": "astro build && wrangler dev"
   },
   "dependencies": {
+    "@astrojs/cloudflare": "^14.2.3",
     "@tailwindcss/vite": "^4.3.3",
     "astro": "^7.2.4",
     "tailwindcss": "^4.3.3"
   },
   "devDependencies": {
     "@astrojs/check": "^0.9.10",
-    "typescript": "^5.9.2"
+    "typescript": "^5.9.2",
+    "wrangler": "^4.125.0"
   }
 }

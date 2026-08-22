@@ -4,10 +4,15 @@ import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
 
 const root = join(dirname(fileURLToPath(import.meta.url)), "..");
-const htmlPath = join(root, "dist", "index.html");
+const htmlPath = [
+  join(root, "dist", "client", "index.html"),
+  join(root, "dist", "index.html"),
+].find((candidate) => existsSync(candidate));
 
-if (!existsSync(htmlPath)) {
-  console.error("Missing dist/index.html. Run `npm run build` first.");
+if (!htmlPath) {
+  console.error(
+    "Missing dist/client/index.html (Cloudflare adapter) or dist/index.html. Run `npm run build` first.",
+  );
   process.exit(1);
 }
 
