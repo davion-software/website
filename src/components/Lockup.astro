@@ -1,0 +1,22 @@
+---
+import HexMark from "./HexMark.astro";
+import { brand } from "../content/home";
+
+interface Props {
+  href?: string;
+}
+
+const { href = "/" } = Astro.props;
+---
+
+<a href={href} class="inline-flex items-center gap-3 no-underline">
+  <HexMark class="h-9 w-9 shrink-0" title={brand.name} />
+  <span class="flex flex-col leading-none">
+    <span class="font-medium tracking-tight text-soft-white">{brand.lockupWordmark}</span>
+    <span
+      class="mt-1 text-[0.65rem] font-medium tracking-[0.28em] text-gold"
+    >
+      {brand.lockupCategory}
+    </span>
+  </span>
+</a>

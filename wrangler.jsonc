@@ -1,0 +1,19 @@
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "davion-software-website",
+  // Astro 6+/7 official Cloudflare adapter entrypoint (not dist/_worker.js).
+  "main": "@astrojs/cloudflare/entrypoints/server",
+  "compatibility_date": "2026-08-22",
+  "compatibility_flags": ["nodejs_compat"],
+  // Preview on *.workers.dev only. Do not attach davionsoftware.com or other DNS.
+  "workers_dev": true,
+  "preview_urls": true,
+  "assets": {
+    // After `astro build`, Wrangler redirects this to dist/client.
+    "binding": "ASSETS",
+    "directory": "./dist"
+  },
+  "observability": {
+    "enabled": true
+  }
+}

@@ -1,0 +1,45 @@
+export const brand = {
+  name: "Davion Software",
+  lockupWordmark: "Davion",
+  lockupCategory: "SOFTWARE",
+} as const;
+
+export const home = {
+  hero: "Software construido alrededor de problemas reales de negocio.",
+  oneLiner:
+    "Davion Software diseña y construye productos web, sistemas internos y automatizaciones para empresas que necesitan modernizar la forma en que operan.",
+  who: "Estudio de software independiente en Perú. Técnico, moderno, preciso, fiable, pragmático.",
+  audienceLead: "Para startups, pymes / SMEs y emprendedores locales.",
+  audienceDetail:
+    "Landings y agentes de ventas en WhatsApp, Instagram y Facebook.",
+  footerStudio: "Estudio de software independiente en Perú.",
+} as const;
+
+export const capabilities = [
+  {
+    name: "Digital products",
+    description:
+      "MVPs, SaaS platforms, portals, dashboards and custom web applications.",
+  },
+  {
+    name: "Internal systems",
+    description:
+      "Operational tools that replace spreadsheets, manual workflows and disconnected software.",
+  },
+  {
+    name: "Automation & AI",
+    description:
+      "Integrations, AI agents, document processing and repetitive-task automation.",
+  },
+  {
+    name: "Software modernization",
+    description:
+      "Interface, performance, architecture and maintainability improvements for existing systems.",
+  },
+] as const;
+
+export const nav = [
+  { href: "#estudio", label: "Estudio" },
+  { href: "#para-quien", label: "Para quién" },
+  { href: "#capacidades", label: "Capacidades" },
+] as const;
