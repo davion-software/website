@@ -12,8 +12,28 @@ export const home = {
   audienceLead: "Para startups, pymes / SMEs y emprendedores locales.",
   audienceDetail:
     "Landings y agentes de ventas en WhatsApp, Instagram y Facebook.",
+  audienceBridge:
+    "Si su negocio depende de hojas de cálculo, chats dispersos o procesos manuales, ese es nuestro punto de partida.",
   footerStudio: "Estudio de software independiente en Perú.",
 } as const;
+
+export const principles = [
+  {
+    title: "Trato directo con quien construye",
+    description:
+      "Sin capas intermedias: la persona que diseña su sistema responde sus preguntas.",
+  },
+  {
+    title: "Decisiones por escrito",
+    description:
+      "Alcance, plazos y costos quedan documentados antes de escribir código.",
+  },
+  {
+    title: "Entregas pequeñas y verificables",
+    description:
+      "Avances funcionales cada semana, en lugar de promesas a meses vista.",
+  },
+] as const;
 
 export const capabilities = [
   {
@@ -37,6 +57,18 @@ export const capabilities = [
       "Interface, performance, architecture and maintainability improvements for existing systems.",
   },
 ] as const;
+
+export const coda = {
+  marker: "Empecemos",
+  headingLead: "Cuéntenos qué le quita tiempo",
+  headingTail: "a su equipo.",
+  support:
+    "Actualmente aceptamos nuevos proyectos. El primer paso es una conversación breve sobre su operación actual y lo que necesita resolver.",
+} as const;
+
+export const links = {
+  github: "https://github.com/davion-software",
+} as const;
 
 export const nav = [
   { href: "#estudio", label: "Estudio" },

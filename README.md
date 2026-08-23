@@ -19,11 +19,14 @@ David has not chosen a production color canon. This site uses **Brand Foundation
 
 | Token | Hex |
 | --- | --- |
+| Davion Black (canvas) | `#0A0A0A` |
 | Davion Charcoal | `#171D26` |
 | Davion Steel | `#2F333C` |
 | Davion Gray | `#707478` |
 | Aged Gold | `#D1A744` |
 | Soft White | `#FEFEFE` |
+
+Davion Black is the page canvas: a neutral near-black with zero channel spread, chosen by David so the background leans toward true black while keeping maximum text contrast. Supporting ink is alpha white over it (`68%` secondary, `52%` tertiary, `12%` lines).
 
 Do **not** use Digital Gold `#EAB33E`, Davion Dark `#121921`, Davion Grey `#2D363F`, Davion Silver `#6E7881`, or Davion White `#FFFFFF`.
 
