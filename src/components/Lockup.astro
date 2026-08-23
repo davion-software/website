@@ -1,5 +1,6 @@
 ---
-import HexMark from "./HexMark.astro";
+import { Image } from "astro:assets";
+import mark from "../assets/mark.webp";
 import { brand } from "../content/home";
 
 interface Props {
@@ -10,12 +11,17 @@ const { href = "/" } = Astro.props;
 ---
 
 <a href={href} class="inline-flex items-center gap-3 no-underline">
-  <HexMark class="h-9 w-9 shrink-0" title={brand.name} />
+  <Image
+    src={mark}
+    alt=""
+    width={36}
+    height={36}
+    densities={[1, 2]}
+    class="size-9 shrink-0"
+  />
   <span class="flex flex-col leading-none">
     <span class="font-medium tracking-tight text-soft-white">{brand.lockupWordmark}</span>
-    <span
-      class="mt-1 text-[0.65rem] font-medium tracking-[0.28em] text-gold"
-    >
+    <span class="mt-1 text-[0.65rem] font-medium tracking-[0.28em] text-gold">
       {brand.lockupCategory}
     </span>
   </span>
