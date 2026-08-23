@@ -2,12 +2,45 @@
 interface Props {
   href: string;
   variant?: "primary" | "secondary";
+  surface?: "dark" | "light";
   rel?: string;
   target?: string;
   class?: string;
 }
 
-const { href, variant = "primary", rel, target, class: className } = Astro.props;
+const {
+  href,
+  variant = "primary",
+  surface = "dark",
+  rel,
+  target,
+  class: className,
+} = Astro.props;
+
+function variantClass(
+  nextVariant: NonNullable<Props["variant"]>,
+  nextSurface: NonNullable<Props["surface"]>,
+) {
+  switch (nextVariant) {
+    case "primary":
+      return "btn-primary bg-gold text-davion-black";
+    case "secondary":
+      switch (nextSurface) {
+        case "dark":
+          return "btn-secondary border border-line text-soft-white";
+        case "light":
+          return "btn-secondary-on-light border border-line-on-light text-charcoal";
+        default: {
+          const _exhaustive: never = nextSurface;
+          return _exhaustive;
+        }
+      }
+    default: {
+      const _exhaustive: never = nextVariant;
+      return _exhaustive;
+    }
+  }
+}
 ---
 
 <a
@@ -17,10 +50,8 @@ const { href, variant = "primary", rel, target, class: className } = Astro.props
   class:list={[
     "inline-flex h-12 items-center justify-center rounded-lg px-6 text-base font-medium",
     "transition-[background-color,border-color,color,transform] duration-150 ease-out-quart",
-    "active:scale-[0.96]",
-    variant === "primary"
-      ? "bg-gold text-davion-black hover:bg-gold/90"
-      : "border border-line text-soft-white hover:border-line-strong hover:bg-wash-hover",
+    "active:scale-[0.97]",
+    variantClass(variant, surface),
     className,
   ]}
 >

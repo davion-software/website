@@ -28,7 +28,7 @@ const year = new Date().getFullYear();
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
     <meta property="og:locale" content="es_PE" />
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="icon" type="image/png" href="/favicon.png" />
     <Font cssVariable="--font-inter" preload />
     <title>{title}</title>
     <script is:inline>
@@ -55,7 +55,7 @@ const year = new Date().getFullYear();
             nav.map((item) => (
               <a
                 href={item.href}
-                class="text-ink-secondary transition-colors duration-150 hover:text-soft-white"
+                class="link-quiet text-ink-secondary transition-colors duration-150 ease-out-quart"
               >
                 {item.label}
               </a>
@@ -68,23 +68,42 @@ const year = new Date().getFullYear();
       <slot />
     </main>
     <footer class="border-t border-line">
-      <div
-        class="mx-auto flex w-full max-w-6xl flex-col gap-4 px-6 py-8 sm:flex-row sm:items-center sm:justify-between sm:px-8"
-      >
-        <Lockup />
-        <div class="flex flex-col gap-2 text-sm sm:items-end">
-          <p class="text-ink-secondary">{home.footerStudio}</p>
-          <p class="flex items-center gap-3">
-            <span class="text-ink-tertiary">© {year} Davion Software</span>
+      <div class="mx-auto w-full max-w-6xl px-6 py-10 sm:px-8 lg:py-12">
+        <div
+          class="flex flex-col gap-10 sm:flex-row sm:items-start sm:justify-between"
+        >
+          <div class="flex max-w-[24rem] flex-col gap-4">
+            <Lockup />
+            <p class="text-sm leading-relaxed text-ink-secondary">
+              {home.footerStudio}
+            </p>
+          </div>
+          <nav
+            aria-label="Pie de página"
+            class="flex flex-col gap-2 text-sm sm:items-end"
+          >
+            {
+              nav.map((item) => (
+                <a
+                  href={item.href}
+                  class="link-quiet text-ink-secondary transition-colors duration-150 ease-out-quart"
+                >
+                  {item.label}
+                </a>
+              ))
+            }
             <a
               href={links.github}
               rel="me noopener"
-              class="text-ink-secondary underline-offset-4 transition-colors duration-150 hover:text-soft-white hover:underline"
+              class="link-quiet text-ink-secondary underline-offset-4 transition-colors duration-150 ease-out-quart hover:underline"
             >
-              GitHub</a
-            >
-          </p>
+              GitHub
+            </a>
+          </nav>
         </div>
+        <p class="mt-10 text-sm text-ink-tertiary">
+          © {year} Davion Software
+        </p>
       </div>
     </footer>
     <script>

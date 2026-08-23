@@ -20,6 +20,9 @@
 
   /* Ladder for the inverted light band (charcoal ink on soft white). */
   --color-ink-on-light-secondary: rgb(23 29 38 / 0.68);
+  --color-line-on-light: rgb(23 29 38 / 0.16);
+  --color-line-on-light-strong: rgb(23 29 38 / 0.28);
+  --color-wash-on-light: rgb(23 29 38 / 0.05);
 
   --ease-out-quart: cubic-bezier(0.23, 1, 0.32, 1);
   --ease-in-out-quart: cubic-bezier(0.77, 0, 0.175, 1);
@@ -54,7 +57,7 @@
   }
 }
 
-/* Entrance sequences run once on load; CSS keeps them off the main thread. */
+/* Content stays visible if motion never runs. */
 @keyframes rise-in {
   from {
     opacity: 0;
@@ -77,100 +80,71 @@
   }
 }
 
-@keyframes fade-in {
-  from {
+@media (prefers-reduced-motion: no-preference) {
+  .rise {
+    animation: rise-in 0.5s var(--ease-out-quart) both;
+  }
+
+  .rise-2 {
+    animation-delay: 80ms;
+  }
+
+  .rise-3 {
+    animation-delay: 160ms;
+  }
+
+  .mark-enter {
+    animation: mark-in 0.5s var(--ease-out-quart) 160ms both;
+  }
+
+  html.js .reveal [data-reveal-item] {
     opacity: 0;
+    transform: translateY(12px);
+    transition:
+      opacity 0.25s var(--ease-out-quart),
+      transform 0.25s var(--ease-out-quart);
   }
-  to {
+
+  html.js .reveal[data-visible] [data-reveal-item] {
     opacity: 1;
+    transform: translateY(0);
+  }
+
+  html.js .reveal[data-visible] [data-reveal-item]:nth-child(2) {
+    transition-delay: 60ms;
+  }
+
+  html.js .reveal[data-visible] [data-reveal-item]:nth-child(3) {
+    transition-delay: 120ms;
+  }
+
+  html.js .reveal[data-visible] [data-reveal-item]:nth-child(4) {
+    transition-delay: 180ms;
   }
 }
 
-.rise {
-  opacity: 0;
-  animation: rise-in 0.6s var(--ease-out-quart) forwards;
-}
+@media (hover: hover) and (pointer: fine) {
+  .btn-primary:hover {
+    background-color: color-mix(in srgb, var(--color-gold) 90%, transparent);
+  }
 
-.rise-2 {
-  animation-delay: 70ms;
-}
+  .btn-secondary:hover {
+    border-color: var(--color-line-strong);
+    background-color: var(--color-wash-hover);
+  }
 
-.rise-3 {
-  animation-delay: 140ms;
-}
+  .btn-secondary-on-light:hover {
+    border-color: var(--color-line-on-light-strong);
+    background-color: var(--color-wash-on-light);
+  }
 
-.rise-4 {
-  animation-delay: 210ms;
-}
-
-.mark-enter {
-  opacity: 0;
-  animation: mark-in 0.7s var(--ease-out-quart) 0.2s forwards;
-}
-
-/* Scroll reveal: gated behind a JS class so content stays visible without it.
-   Fires once per element via IntersectionObserver in Layout. */
-html.js .reveal {
-  opacity: 0;
-  transform: translateY(12px);
-  transition:
-    opacity 0.5s var(--ease-out-quart),
-    transform 0.5s var(--ease-out-quart);
-}
-
-html.js .reveal[data-visible] {
-  opacity: 1;
-  transform: translateY(0);
-}
-
-/* Staggered descendants of a revealed container (60ms steps).
-   Descendant (not child) selectors: items live inside ol/dl wrappers. */
-html.js .reveal [data-reveal-item] {
-  opacity: 0;
-  transform: translateY(12px);
-  transition:
-    opacity 0.5s var(--ease-out-quart),
-    transform 0.5s var(--ease-out-quart);
-}
-
-html.js .reveal[data-visible] [data-reveal-item] {
-  opacity: 1;
-  transform: translateY(0);
-}
-
-html.js .reveal[data-visible] [data-reveal-item]:nth-child(2) {
-  transition-delay: 60ms;
-}
-
-html.js .reveal[data-visible] [data-reveal-item]:nth-child(3) {
-  transition-delay: 120ms;
-}
-
-html.js .reveal[data-visible] [data-reveal-item]:nth-child(4) {
-  transition-delay: 180ms;
+  .link-quiet:hover {
+    color: var(--color-soft-white);
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {
   html {
     scroll-behavior: auto;
-  }
-
-  .rise,
-  .mark-enter {
-    animation-name: fade-in;
-    animation-duration: 0.2s;
-    animation-delay: 0s;
-  }
-
-  html.js .reveal {
-    transition-duration: 0.2s;
-    transform: none;
-  }
-
-  html.js .reveal [data-reveal-item],
-  html.js .reveal[data-visible] [data-reveal-item] {
-    transition-duration: 0.2s;
-    transition-delay: 0s;
-    transform: none;
   }
 }

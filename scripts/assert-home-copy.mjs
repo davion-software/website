@@ -1,5 +1,5 @@
 #!/usr/bin/env node
-import { readFileSync, existsSync } from "node:fs";
+import { existsSync, readFileSync } from "node:fs";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
 
@@ -19,19 +19,26 @@ if (!htmlPath) {
 const html = readFileSync(htmlPath, "utf8");
 
 const required = [
-  "Software construido alrededor de problemas reales de negocio.",
-  "Davion Software diseña y construye productos web, sistemas internos y automatizaciones para empresas que necesitan modernizar la forma en que operan.",
-  "Estudio de software independiente en Perú. Técnico, moderno, preciso, fiable, pragmático.",
-  "startups, pymes / SMEs y emprendedores locales",
+  "Software para el trabajo",
+  "que hoy se hace a mano.",
+  "Aceptando nuevos proyectos",
+  "Cuéntenos qué le quita tiempo",
+  "a su equipo.",
+  "Diseñamos y construimos productos web, sistemas internos y automatizaciones para empresas en Perú.",
+  "Estudio de software independiente en Perú.",
+  "startups, pymes y emprendedores locales",
   "WhatsApp, Instagram y Facebook",
-  "Digital products",
-  "MVPs, SaaS platforms, portals, dashboards and custom web applications.",
-  "Internal systems",
-  "Operational tools that replace spreadsheets, manual workflows and disconnected software.",
-  "Automation &amp; AI",
-  "Integrations, AI agents, document processing and repetitive-task automation.",
-  "Software modernization",
-  "Interface, performance, architecture and maintainability improvements for existing systems.",
+  "Productos digitales",
+  "MVPs, plataformas SaaS, portales, tableros y aplicaciones web a medida.",
+  "Sistemas internos",
+  "Herramientas operativas que reemplazan hojas de cálculo, flujos manuales y software desconectado.",
+  "Automatización e IA",
+  "Integraciones, agentes, procesamiento de documentos y automatización de tareas repetitivas.",
+  "Modernización de software",
+  "Mejoras de interfaz, rendimiento, arquitectura y mantenimiento en sistemas que ya existen.",
+  "Escribir por WhatsApp",
+  "Escribir un correo",
+  "hola@davionsoftware.com",
   "Davion",
   "SOFTWARE",
 ];
@@ -45,7 +52,8 @@ const forbiddenCopy = [
   "innovation",
 ];
 
-const emailPattern = /[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}/i;
+const emailPattern = /[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}/gi;
+const allowedEmails = ["hola@davionsoftware.com"];
 
 const forbiddenColors = [
   "#EAB33E",
@@ -73,8 +81,15 @@ if (leakedCopy.length > 0) {
   console.error("Forbidden copy present:\n- " + leakedCopy.join("\n- "));
 }
 
-if (emailPattern.test(html)) {
-  console.error("Invented contact email is not allowed.");
+const foundEmails = html.match(emailPattern) ?? [];
+const inventedEmails = [
+  ...new Set(foundEmails.map((email) => email.toLowerCase())),
+].filter((email) => !allowedEmails.includes(email));
+
+if (inventedEmails.length > 0) {
+  console.error(
+    "Invented contact email is not allowed:\n- " + inventedEmails.join("\n- "),
+  );
 }
 
 if (leakedColors.length > 0) {
@@ -95,7 +110,7 @@ if (
   leakedColors.length > 0 ||
   usedWhite ||
   usedGeist ||
-  emailPattern.test(html)
+  inventedEmails.length > 0
 ) {
   process.exit(1);
 }
