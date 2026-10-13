@@ -50,26 +50,48 @@ export const capabilitiesHeading = "Capacidades";
 
 export const capabilities = [
   {
+    icon: "product",
     name: "Productos digitales",
-    description:
-      "MVPs, plataformas SaaS, portales, tableros y aplicaciones web a medida.",
+    pain: "¿Tiene una idea de producto y no sabe por dónde empezar a construirla?",
+    delivery:
+      "Una primera versión usable para validar con usuarios reales, sobre una base técnica que aguanta crecer.",
+    tools: [] as string[],
   },
   {
+    icon: "internal",
     name: "Sistemas internos",
-    description:
-      "Herramientas operativas que reemplazan hojas de cálculo, flujos manuales y software desconectado.",
+    pain: "¿Su equipo copia los mismos datos en tres lugares?",
+    delivery:
+      "Un sistema a medida que reemplaza las hojas de cálculo: un solo lugar para registrar, consultar y reportar, con permisos por persona.",
+    tools: [] as string[],
   },
   {
+    icon: "automation",
     name: "Automatización e IA",
-    description:
-      "Integraciones, agentes, procesamiento de documentos y automatización de tareas repetitivas.",
+    pain: "¿Alguien de su equipo pasa horas en tareas que se repiten igual cada semana?",
+    delivery:
+      "Integraciones entre sus herramientas, lectura automática de documentos y flujos que registran, avisan y responden sin trabajo manual.",
+    tools: [] as string[],
   },
   {
-    name: "Modernización de software",
-    description:
-      "Mejoras de interfaz, rendimiento, arquitectura y mantenimiento en sistemas que ya existen.",
+    icon: "modernization",
+    name: "Modernización",
+    pain: "¿Su sistema actual es lento, difícil de cambiar o nadie se atreve a tocarlo?",
+    delivery:
+      "Una revisión del sistema existente y mejoras por etapas en interfaz, rendimiento y mantenimiento, sin detener la operación.",
+    tools: [] as string[],
+  },
+  {
+    icon: "messaging",
+    name: "Landings y agentes de mensajería",
+    pain: "¿Se le escapan consultas de clientes por WhatsApp, Instagram o Facebook?",
+    delivery:
+      "Una landing clara para su oferta y un agente que responde lo frecuente y deriva a su equipo lo que necesita una persona.",
+    tools: [] as string[],
   },
 ] as const;
+
+export type CapabilityIcon = (typeof capabilities)[number]["icon"];
 
 export const faqHeading = "Preguntas frecuentes";
 

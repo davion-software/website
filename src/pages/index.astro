@@ -1,5 +1,6 @@
 ---
 import Button from "../components/Button.astro";
+import CapabilityIconGlyph from "../components/CapabilityIconGlyph.astro";
 import FaqList from "../components/FaqList.astro";
 import HeroVisual from "../components/HeroVisual.astro";
 import Layout from "../layouts/Layout.astro";
@@ -141,16 +142,37 @@ const orgSchema = {
     <h2 class="text-3xl leading-none font-medium tracking-tight sm:text-4xl">
       {capabilitiesHeading}
     </h2>
-    <ul class="reveal mt-16 grid gap-16 sm:grid-cols-2">
+    <ul class="reveal mt-12 grid auto-rows-fr gap-4 md:grid-cols-2">
       {
-        capabilities.map((capability) => (
-          <li data-reveal-item class="max-w-xl">
-            <h3 class="text-xl font-medium tracking-tight text-soft-white sm:text-2xl">
+        capabilities.map((capability, index) => (
+          <li
+            data-reveal-item
+            class:list={[
+              "flex flex-col rounded-xl border border-line bg-charcoal p-6",
+              index === capabilities.length - 1 &&
+                capabilities.length % 2 === 1 &&
+                "md:col-span-2",
+            ]}
+          >
+            <CapabilityIconGlyph name={capability.icon} />
+            <h3 class="mt-5 text-xl font-medium tracking-tight text-soft-white">
               {capability.name}
             </h3>
-            <p class="mt-4 text-base leading-relaxed text-pretty text-ink-secondary">
-              {capability.description}
+            <p class="mt-3 text-base leading-relaxed text-pretty text-soft-white">
+              {capability.pain}
             </p>
+            <p class="mt-3 text-base leading-relaxed text-pretty text-ink-secondary">
+              {capability.delivery}
+            </p>
+            {capability.tools.length > 0 && (
+              <ul class="mt-5 flex flex-wrap gap-2">
+                {capability.tools.map((tool) => (
+                  <li class="rounded-full border border-line px-3 py-1 text-sm text-ink-secondary">
+                    {tool}
+                  </li>
+                ))}
+              </ul>
+            )}
           </li>
         ))
       }
