@@ -10,11 +10,13 @@ import Section from "../components/Section.astro";
 import Testimonials from "../components/Testimonials.astro";
 import TaglineReveal from "../components/TaglineReveal.astro";
 import {
+  brand,
   capabilities,
   capabilitiesHeading,
   coda,
   faq,
   faqHeading,
+  founder,
   home,
   links,
   principles,
@@ -26,7 +28,6 @@ import {
 export const prerender = true;
 
 const faqSchema = {
-  "@context": "https://schema.org",
   "@type": "FAQPage",
   mainEntity: faq.map((item) => ({
     "@type": "Question",
@@ -38,21 +39,38 @@ const faqSchema = {
   })),
 };
 
+const siteUrl = "https://davionsoftware.com";
 const orgSchema = {
-  "@context": "https://schema.org",
   "@type": "ProfessionalService",
-  name: "Davion Software",
-  url: "https://davionsoftware.com",
-  email: "hola@davionsoftware.com",
-  areaServed: "PE",
+  name: brand.name,
+  url: siteUrl,
+  email: links.emailAddress,
+  telephone: "+51996004562",
+  logo: `${siteUrl}/favicon.png`,
+  image: `${siteUrl}/og.png`,
   description: home.oneLiner,
+  areaServed: "PE",
+  address: { "@type": "PostalAddress", addressCountry: "PE" },
   sameAs: [links.github],
+  ...(founder.enabled && {
+    founder: {
+      "@type": "Person",
+      name: founder.name,
+      jobTitle: founder.role,
+      url: founder.links[2].href,
+      sameAs: [founder.links[0].href, founder.links[1].href],
+    },
+  }),
+};
+
+const jsonLd = {
+  "@context": "https://schema.org",
+  "@graph": [orgSchema, faqSchema],
 };
 ---
 
 <Layout>
-  <script is:inline type="application/ld+json" set:html={JSON.stringify(orgSchema)} />
-  <script is:inline type="application/ld+json" set:html={JSON.stringify(faqSchema)} />
+  <script is:inline type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
 
   <Section tone="base" compact>
     <div

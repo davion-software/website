@@ -54,6 +54,18 @@ npm run test:copy
 
 `test:copy` expects a completed `npm run build`. With the Cloudflare adapter, Home HTML is at `dist/client/index.html`. It asserts Home copy, the four official capabilities, Brand Foundations colors, and the absence of an invented email.
 
+## Social image
+
+`public/og.png` (1200×630) is generated from `scripts/og/og.html`, which uses `src/assets/mark.webp` and the bundled Inter file in `scripts/og/fonts`. Regenerate it with Chrome after editing the page:
+
+```bash
+"/Applications/Google Chrome.app/Contents/MacOS/Google Chrome" --headless=new --hide-scrollbars \
+  --force-device-scale-factor=1 --window-size=1200,630 --virtual-time-budget=3000 \
+  --screenshot="$PWD/public/og.png" "file://$PWD/scripts/og/og.html"
+```
+
+Keep the file under 150 KB and check that no text is cut off.
+
 ## Cloudflare (Workers)
 
 Official Astro 2026 support is `@astrojs/cloudflare` on **Cloudflare Workers** (not Pages Functions). This site stays static-friendly: Home is prerendered.

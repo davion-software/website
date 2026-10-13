@@ -10,7 +10,7 @@ interface Props {
 const { href = "/" } = Astro.props;
 ---
 
-<a href={href} class="inline-flex min-h-11 items-center gap-3 no-underline">
+<a href={href} aria-label={`${brand.name}, inicio`} class="inline-flex min-h-11 items-center gap-3 no-underline">
   <Image
     src={mark}
     alt=""
