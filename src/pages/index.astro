@@ -1,97 +1,172 @@
 ---
+import { Image } from "astro:assets";
+import mark from "../assets/mark.webp";
 import Button from "../components/Button.astro";
+import FaqList from "../components/FaqList.astro";
 import Layout from "../layouts/Layout.astro";
-import { capabilities, coda, home, links, principles } from "../content/home";
+import TaglineReveal from "../components/TaglineReveal.astro";
+import {
+  benefits,
+  benefitsHeading,
+  capabilities,
+  capabilitiesHeading,
+  coda,
+  faq,
+  faqHeading,
+  home,
+  links,
+  principles,
+  processHeading,
+  tagline,
+} from "../content/home";
 
 export const prerender = true;
+
+const faqSchema = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  mainEntity: faq.map((item) => ({
+    "@type": "Question",
+    name: item.question,
+    acceptedAnswer: {
+      "@type": "Answer",
+      text: item.answer,
+    },
+  })),
+};
+
+const orgSchema = {
+  "@context": "https://schema.org",
+  "@type": "ProfessionalService",
+  name: "Davion Software",
+  url: "https://davionsoftware.com",
+  email: "hola@davionsoftware.com",
+  areaServed: "PE",
+  description: home.oneLiner,
+  sameAs: [links.github],
+};
 ---
 
 <Layout>
-  <section class="lg:flex lg:min-h-[calc(100dvh-4.5rem)] lg:items-center">
+  <script is:inline type="application/ld+json" set:html={JSON.stringify(orgSchema)} />
+  <script is:inline type="application/ld+json" set:html={JSON.stringify(faqSchema)} />
+
+  <section class="lg:flex lg:min-h-[calc(100dvh-4rem)] lg:items-center">
     <div
-      class="mx-auto flex w-full max-w-6xl justify-center px-6 pt-16 pb-20 sm:px-8 sm:pt-20 lg:py-16"
+      class="mx-auto grid w-full max-w-6xl items-center px-6 pt-16 pb-20 sm:px-8 lg:grid-cols-12 lg:gap-12 lg:py-16"
     >
-      <div class="flex max-w-[52rem] flex-col items-center text-center">
-        <p class="rise flex items-center gap-2.5 text-sm text-ink-tertiary">
+      <div class="flex flex-col lg:col-span-8">
+        <p class="rise flex items-center gap-2 text-sm text-ink-tertiary">
           <span
             aria-hidden="true"
-            class="inline-block size-1.5 rounded-full bg-gold"></span>
+            class="inline-block size-2 rounded-full bg-gold"></span>
           {home.availability}
         </p>
         <h1
-          class="rise rise-2 mt-5 max-w-[22ch] text-[2.75rem] leading-[1.05] font-medium tracking-tight text-balance sm:text-6xl lg:text-7xl"
+          class="rise rise-2 mt-6 flex max-w-2xl flex-col gap-4 text-3xl leading-none font-medium tracking-tight sm:text-5xl lg:max-w-none lg:text-6xl"
         >
-          {home.heroLead}{" "}<span class="text-ink-secondary">{home.heroTail}</span>
+          <span class="lg:whitespace-nowrap">{home.heroLead}</span>
+          <span class="text-ink-secondary lg:whitespace-nowrap">{home.heroTail}</span>
         </h1>
         <p
-          class="rise rise-3 mt-6 max-w-[42rem] text-base leading-relaxed text-pretty text-ink-secondary sm:mt-8 sm:text-xl"
+          class="rise rise-3 mt-8 max-w-2xl text-base leading-relaxed text-pretty text-ink-secondary sm:text-xl"
         >
           {home.oneLiner}
         </p>
-        <div class="mt-8 flex flex-wrap justify-center gap-3 sm:mt-10">
-          <Button variant="primary" href="#contacto">{home.primaryCta}</Button>
-          <Button variant="secondary" href="#capacidades">
-            {home.secondaryCta}
+        <p class="rise rise-4 mt-4 max-w-2xl text-sm leading-relaxed text-pretty text-ink-tertiary">
+          {home.heroProof}
+        </p>
+        <div class="rise rise-4 mt-10">
+          <Button
+            variant="primary"
+            href={links.whatsapp}
+            rel="noopener noreferrer"
+            target="_blank"
+          >
+            {home.primaryCta}
           </Button>
         </div>
+      </div>
+      <div class="mark-enter mt-16 hidden justify-end lg:col-span-4 lg:mt-0 lg:flex">
+        <Image
+          src={mark}
+          alt=""
+          width={224}
+          height={224}
+          loading="eager"
+          fetchpriority="high"
+          densities={[1, 2]}
+          class="size-56"
+        />
       </div>
     </div>
   </section>
 
+  <TaglineReveal lines={tagline.lines} />
+
   <section
     id="estudio"
-    class="mx-auto w-full max-w-6xl scroll-mt-24 px-6 py-12 sm:px-8 lg:py-16"
+    class="mx-auto w-full max-w-6xl scroll-mt-24 px-6 py-24 sm:px-8"
   >
     <h2
-      class="max-w-[24ch] text-2xl leading-snug font-medium tracking-tight text-balance sm:text-3xl"
+      class="max-w-2xl text-3xl leading-none font-medium tracking-tight text-balance sm:text-4xl"
     >
       {home.who}
     </h2>
     <p
-      class="mt-6 max-w-[36rem] text-lg leading-relaxed text-pretty text-ink-secondary"
+      class="mt-8 max-w-2xl text-lg leading-relaxed text-pretty text-ink-secondary"
     >
       {home.audienceLead}{" "}{home.audienceDetail}
     </p>
     <p
-      class="mt-4 max-w-[36rem] text-base leading-relaxed text-pretty text-ink-secondary"
+      class="mt-4 max-w-2xl text-base leading-relaxed text-pretty text-ink-secondary"
     >
       {home.audienceBridge}
     </p>
-    <dl class="mt-14 grid gap-10 sm:grid-cols-3 sm:gap-8 lg:mt-16">
+  </section>
+
+  <section class="mx-auto w-full max-w-6xl px-6 py-24 sm:px-8">
+    <h2 class="max-w-2xl text-3xl leading-none font-medium tracking-tight text-balance sm:text-4xl">
+      {benefitsHeading}
+    </h2>
+    <ul class="reveal mt-16 grid gap-16 md:grid-cols-2">
       {
-        principles.map((principle) => (
-          <div>
-            <dt class="text-base font-medium text-soft-white">
-              {principle.title}
-            </dt>
-            <dd class="mt-2 text-sm leading-relaxed text-pretty text-ink-secondary">
-              {principle.description}
-            </dd>
-          </div>
+        benefits.map((benefit, index) => (
+          <li
+            data-reveal-item
+            class:list={[index === 0 ? "max-w-2xl md:col-span-2" : "max-w-xl"]}
+          >
+            <h3 class="text-xl font-medium tracking-tight text-soft-white sm:text-2xl">
+              {benefit.title}
+            </h3>
+            <p class="mt-4 text-base leading-relaxed text-pretty text-ink-secondary">
+              {benefit.description}
+            </p>
+          </li>
         ))
       }
-    </dl>
+    </ul>
   </section>
 
   <section
-    id="capacidades"
-    class="mx-auto w-full max-w-6xl scroll-mt-24 px-6 py-12 sm:px-8 lg:py-16"
+    id="proceso"
+    class="mx-auto w-full max-w-6xl scroll-mt-24 px-6 py-24 sm:px-8"
   >
-    <h2 class="text-2xl font-medium tracking-tight sm:text-3xl">
-      Capacidades
+    <h2 class="max-w-2xl text-3xl leading-none font-medium tracking-tight text-balance sm:text-4xl">
+      {processHeading}
     </h2>
-    <ol class="reveal mt-10">
+    <ol class="reveal mt-16 flex flex-col gap-16">
       {
-        capabilities.map((capability) => (
+        principles.map((step) => (
           <li
             data-reveal-item
-            class="grid gap-3 border-t border-line py-8 lg:grid-cols-12 lg:gap-16 lg:py-10"
+            class="grid gap-4 lg:grid-cols-12 lg:gap-16"
           >
             <h3 class="text-xl font-medium tracking-tight text-soft-white sm:text-2xl lg:col-span-5">
-              {capability.name}
+              {step.title}
             </h3>
-            <p class="max-w-[36rem] text-base leading-relaxed text-pretty text-ink-secondary lg:col-span-7 lg:pt-1">
-              {capability.description}
+            <p class="max-w-2xl text-base leading-relaxed text-pretty text-ink-secondary lg:col-span-7">
+              {step.description}
             </p>
           </li>
         ))
@@ -99,18 +174,57 @@ export const prerender = true;
     </ol>
   </section>
 
+  <section
+    id="capacidades"
+    class="mx-auto w-full max-w-6xl scroll-mt-24 px-6 py-24 sm:px-8"
+  >
+    <h2 class="text-3xl leading-none font-medium tracking-tight sm:text-4xl">
+      {capabilitiesHeading}
+    </h2>
+    <ul class="reveal mt-16 grid gap-16 sm:grid-cols-2">
+      {
+        capabilities.map((capability) => (
+          <li data-reveal-item class="max-w-xl">
+            <h3 class="text-xl font-medium tracking-tight text-soft-white sm:text-2xl">
+              {capability.name}
+            </h3>
+            <p class="mt-4 text-base leading-relaxed text-pretty text-ink-secondary">
+              {capability.description}
+            </p>
+          </li>
+        ))
+      }
+    </ul>
+  </section>
+
+  <section
+    id="preguntas"
+    class="mx-auto w-full max-w-6xl scroll-mt-24 px-6 py-24 sm:px-8"
+  >
+    <h2 class="max-w-2xl text-3xl leading-none font-medium tracking-tight text-balance sm:text-4xl">
+      {faqHeading}
+    </h2>
+    <FaqList items={faq} />
+  </section>
+
   <section id="contacto" class="scroll-mt-24 bg-soft-white text-charcoal">
-    <div class="mx-auto w-full max-w-6xl px-6 py-20 sm:px-8 lg:py-28">
-      <div class="max-w-[44rem]">
+    <div class="mx-auto w-full max-w-6xl px-6 py-24 sm:px-8">
+      <div class="max-w-2xl">
         <h2
-          class="text-3xl leading-tight font-medium tracking-tight text-balance sm:text-5xl sm:leading-[1.08]"
+          class="flex max-w-2xl flex-col gap-4 text-3xl leading-none font-medium tracking-tight sm:text-4xl"
         >
-          {coda.headingLead}{" "}<span class="text-ink-on-light-secondary">{coda.headingTail}</span>
+          <span>{coda.headingLead}</span>
+          <span class="text-ink-on-light-secondary">{coda.headingTail}</span>
         </h2>
         <p
-          class="mt-8 max-w-prose text-lg leading-relaxed text-pretty text-ink-on-light-secondary"
+          class="mt-8 max-w-2xl text-lg leading-relaxed text-pretty text-ink-on-light-secondary"
         >
           {coda.support}
+        </p>
+        <p
+          class="mt-4 max-w-2xl text-base leading-relaxed text-pretty text-ink-on-light-secondary"
+        >
+          {coda.riskReversal}
         </p>
         <div class="mt-10 flex flex-wrap gap-3">
           <Button

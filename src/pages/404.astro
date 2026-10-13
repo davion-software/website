@@ -1,0 +1,28 @@
+---
+import Button from "../components/Button.astro";
+import Layout from "../layouts/Layout.astro";
+
+export const prerender = true;
+---
+
+<Layout
+  title="Página no encontrada. Davion Software"
+  description="Esta página no existe. Vuelva al inicio de Davion Software."
+>
+  <section class="mx-auto flex min-h-[calc(100dvh-16rem)] w-full max-w-6xl items-center px-6 py-24 sm:px-8">
+    <div class="max-w-2xl">
+      <h1
+        class="max-w-2xl text-5xl leading-none font-medium tracking-tight text-balance sm:text-6xl"
+      >
+        Esta página no existe.
+      </h1>
+      <p class="mt-8 max-w-2xl text-lg leading-relaxed text-pretty text-ink-secondary">
+        El enlace puede estar mal escrito o la página ya no está. Puede volver al
+        inicio y escribirnos por WhatsApp.
+      </p>
+      <div class="mt-10">
+        <Button variant="primary" href="/">Volver al inicio</Button>
+      </div>
+    </div>
+  </section>
+</Layout>

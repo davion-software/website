@@ -1,0 +1,63 @@
+---
+interface Props {
+  lines: readonly string[];
+}
+
+const { lines } = Astro.props;
+const before = lines[0] ?? "";
+const after = lines[1] ?? "";
+---
+
+<section class="bg-charcoal" aria-labelledby="tagline-heading">
+  <div class="mx-auto w-full max-w-6xl px-6 py-24 sm:px-8">
+    <h2
+      id="tagline-heading"
+      class="tagline flex max-w-4xl flex-col gap-8 tracking-tight"
+    >
+      <span
+        class="tagline-before text-3xl leading-none font-medium text-balance sm:text-4xl lg:text-5xl"
+      >
+        <span class="tagline-before-copy">{before}</span>
+        {
+          before && (
+            <span class="tagline-strike-copy" aria-hidden="true">
+              {before}
+            </span>
+          )
+        }
+      </span>
+      {
+        after && (
+          <span class="tagline-after text-4xl leading-none font-medium text-balance sm:text-5xl lg:text-6xl">
+            {after}
+          </span>
+        )
+      }
+    </h2>
+  </div>
+</section>
+
+<script>
+  const heading = document.getElementById("tagline-heading");
+
+  if (heading) {
+    const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+    if (reduce) {
+      heading.setAttribute("data-visible", "");
+    } else {
+      const observer = new IntersectionObserver(
+        (entries) => {
+          for (const entry of entries) {
+            if (!entry.isIntersecting) continue;
+            entry.target.setAttribute("data-visible", "");
+            observer.unobserve(entry.target);
+          }
+        },
+        { root: null, rootMargin: "0px 0px -30% 0px", threshold: 0 },
+      );
+
+      observer.observe(heading);
+    }
+  }
+</script>

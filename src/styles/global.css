@@ -26,6 +26,7 @@
 
   --ease-out-quart: cubic-bezier(0.23, 1, 0.32, 1);
   --ease-in-out-quart: cubic-bezier(0.77, 0, 0.175, 1);
+  --ease-fluid: cubic-bezier(0.32, 0.72, 0, 1);
 }
 
 @layer base {
@@ -61,11 +62,13 @@
 @keyframes rise-in {
   from {
     opacity: 0;
-    transform: translateY(12px);
+    transform: translateY(4rem);
+    filter: blur(12px);
   }
   to {
     opacity: 1;
     transform: translateY(0);
+    filter: blur(0);
   }
 }
 
@@ -82,45 +85,131 @@
 
 @media (prefers-reduced-motion: no-preference) {
   .rise {
-    animation: rise-in 0.5s var(--ease-out-quart) both;
+    animation: rise-in 0.8s var(--ease-fluid) both;
   }
 
   .rise-2 {
-    animation-delay: 80ms;
+    animation-delay: 100ms;
   }
 
   .rise-3 {
-    animation-delay: 160ms;
+    animation-delay: 150ms;
+  }
+
+  .rise-4 {
+    animation-delay: 200ms;
   }
 
   .mark-enter {
-    animation: mark-in 0.5s var(--ease-out-quart) 160ms both;
+    animation: mark-in 0.8s var(--ease-fluid) 200ms both;
   }
 
   html.js .reveal [data-reveal-item] {
     opacity: 0;
-    transform: translateY(12px);
+    transform: translateY(4rem);
+    filter: blur(8px);
     transition:
-      opacity 0.25s var(--ease-out-quart),
-      transform 0.25s var(--ease-out-quart);
+      opacity 0.8s var(--ease-fluid),
+      transform 0.8s var(--ease-fluid),
+      filter 0.8s var(--ease-fluid);
   }
 
   html.js .reveal[data-visible] [data-reveal-item] {
     opacity: 1;
     transform: translateY(0);
+    filter: blur(0);
   }
 
   html.js .reveal[data-visible] [data-reveal-item]:nth-child(2) {
-    transition-delay: 60ms;
+    transition-delay: 100ms;
   }
 
   html.js .reveal[data-visible] [data-reveal-item]:nth-child(3) {
-    transition-delay: 120ms;
+    transition-delay: 150ms;
   }
 
   html.js .reveal[data-visible] [data-reveal-item]:nth-child(4) {
-    transition-delay: 180ms;
+    transition-delay: 200ms;
   }
+}
+
+.tagline-before {
+  position: relative;
+  display: block;
+  width: fit-content;
+  max-width: 100%;
+  color: rgb(254 254 254 / 0.32);
+}
+
+.tagline-strike-copy {
+  position: absolute;
+  inset: 0;
+  color: transparent;
+  pointer-events: none;
+  user-select: none;
+  text-decoration-line: line-through;
+  text-decoration-color: var(--color-gold);
+  text-decoration-thickness: 2px;
+  text-decoration-skip-ink: none;
+  clip-path: inset(0 0 0 0);
+}
+
+.tagline-after {
+  color: var(--color-soft-white);
+}
+
+html.js .tagline-strike-copy {
+  clip-path: inset(0 100% 0 0);
+  transition: clip-path 0.8s var(--ease-fluid);
+}
+
+html.js .tagline[data-visible] .tagline-strike-copy {
+  clip-path: inset(0 0% 0 0);
+}
+
+html.js .tagline-after {
+  color: rgb(254 254 254 / 0.3);
+  transform: translateY(1rem);
+  transition:
+    color 0.7s var(--ease-fluid) 0.35s,
+    transform 0.7s var(--ease-fluid) 0.35s;
+}
+
+html.js .tagline[data-visible] .tagline-after {
+  color: var(--color-soft-white);
+  transform: translateY(0);
+}
+
+.faq-summary {
+  cursor: pointer;
+  display: flex;
+  min-height: 48px;
+  list-style: none;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  white-space: normal;
+}
+
+.faq-summary::-webkit-details-marker {
+  display: none;
+}
+
+.faq-summary::after {
+  content: "";
+  width: 12px;
+  height: 12px;
+  flex-shrink: 0;
+  background:
+    linear-gradient(var(--color-soft-white), var(--color-soft-white)) center / 12px 2px
+      no-repeat,
+    linear-gradient(var(--color-soft-white), var(--color-soft-white)) center / 2px 12px
+      no-repeat;
+  transition: transform 0.7s var(--ease-fluid);
+}
+
+.faq-item[open] .faq-summary::after {
+  transform: rotate(45deg);
 }
 
 @media (hover: hover) and (pointer: fine) {
@@ -138,13 +227,36 @@
     background-color: var(--color-wash-on-light);
   }
 
+  .faq-item:hover {
+    border-color: var(--color-line-strong);
+  }
+
   .link-quiet:hover {
     color: var(--color-soft-white);
   }
 }
 
+.link-quiet[aria-current="location"] {
+  color: var(--color-soft-white);
+}
+
 @media (prefers-reduced-motion: reduce) {
   html {
     scroll-behavior: auto;
+  }
+
+  html.js .tagline-strike-copy {
+    clip-path: inset(0 0 0 0);
+    transition: none;
+  }
+
+  html.js .tagline-after {
+    color: var(--color-soft-white);
+    transform: none;
+    transition: none;
+  }
+
+  .faq-summary::after {
+    transition: none;
   }
 }

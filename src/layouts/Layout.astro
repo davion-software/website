@@ -10,11 +10,14 @@ interface Props {
 }
 
 const {
-  title = `${brand.name} — Estudio de software independiente en Perú`,
+  title = `${brand.name}. Estudio de software independiente en Perú`,
   description = home.oneLiner,
 } = Astro.props;
 
 const year = new Date().getFullYear();
+const canonical = new URL(Astro.url.pathname, Astro.site ?? "https://davionsoftware.com");
+const ogImage = new URL("/og.png", canonical).href;
+const isHome = Astro.url.pathname === "/";
 ---
 
 <!doctype html>
@@ -28,6 +31,14 @@ const year = new Date().getFullYear();
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
     <meta property="og:locale" content="es_PE" />
+    <meta property="og:url" content={canonical.href} />
+    <meta property="og:image" content={ogImage} />
+    <meta property="og:image:alt" content="Davion Software" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={ogImage} />
+    <link rel="canonical" href={canonical.href} />
     <link rel="icon" type="image/png" href="/favicon.png" />
     <Font cssVariable="--font-inter" preload />
     <title>{title}</title>
@@ -35,27 +46,30 @@ const year = new Date().getFullYear();
       document.documentElement.classList.add("js");
     </script>
   </head>
-    <body class="min-h-dvh bg-davion-black font-sans text-soft-white">
+  <body class="min-h-dvh bg-davion-black font-sans text-soft-white">
     <a
       href="#contenido"
-      class="sr-only focus:not-sr-only focus:absolute focus:left-4 focus:top-4 focus:z-50 focus:rounded-md focus:bg-steel focus:px-4 focus:py-3 focus:text-sm focus:font-medium"
+      class="sr-only focus:not-sr-only focus:absolute focus:left-4 focus:top-4 focus:z-50 focus:rounded-lg focus:bg-steel focus:px-4 focus:py-3 focus:text-sm focus:font-semibold"
     >
       Saltar al contenido
     </a>
-    <header class="border-b border-line">
+    <header
+      class="sticky top-0 z-20 border-b border-line bg-davion-black/90 backdrop-blur-md"
+    >
       <div
-        class="mx-auto flex w-full max-w-6xl flex-col gap-4 px-6 py-4 sm:flex-row sm:items-center sm:justify-between sm:px-8"
+        class="mx-auto flex w-full max-w-6xl flex-col gap-4 px-6 py-4 sm:h-16 sm:flex-row sm:items-center sm:justify-between sm:gap-0 sm:px-8 sm:py-0"
       >
         <Lockup />
         <nav
           aria-label="Principal"
-          class="flex flex-wrap items-center gap-x-6 gap-y-2 text-sm font-medium"
+          class="flex flex-wrap items-center gap-x-4 gap-y-2 text-sm font-medium sm:gap-x-6"
         >
           {
             nav.map((item) => (
               <a
-                href={item.href}
-                class="link-quiet text-ink-secondary transition-colors duration-150 ease-out-quart"
+                href={isHome ? item.href : `/${item.href}`}
+                data-nav-link={isHome ? item.href : undefined}
+                class="link-quiet text-ink-secondary transition-[color] duration-150 ease-out-quart"
               >
                 {item.label}
               </a>
@@ -72,7 +86,7 @@ const year = new Date().getFullYear();
         <div
           class="flex flex-col gap-10 sm:flex-row sm:items-start sm:justify-between"
         >
-          <div class="flex max-w-[24rem] flex-col gap-4">
+          <div class="flex max-w-sm flex-col gap-4">
             <Lockup />
             <p class="text-sm leading-relaxed text-ink-secondary">
               {home.footerStudio}
@@ -85,8 +99,8 @@ const year = new Date().getFullYear();
             {
               nav.map((item) => (
                 <a
-                  href={item.href}
-                  class="link-quiet text-ink-secondary transition-colors duration-150 ease-out-quart"
+                  href={isHome ? item.href : `/${item.href}`}
+                  class="link-quiet text-ink-secondary transition-[color] duration-150 ease-out-quart"
                 >
                   {item.label}
                 </a>
@@ -95,9 +109,21 @@ const year = new Date().getFullYear();
             <a
               href={links.github}
               rel="me noopener"
-              class="link-quiet text-ink-secondary underline-offset-4 transition-colors duration-150 ease-out-quart hover:underline"
+              class="link-quiet text-ink-secondary underline-offset-4 transition-[color] duration-150 ease-out-quart hover:underline"
             >
               GitHub
+            </a>
+            <a
+              href="/privacidad"
+              class="link-quiet text-ink-secondary underline-offset-4 transition-[color] duration-150 ease-out-quart hover:underline"
+            >
+              Privacidad
+            </a>
+            <a
+              href="/terminos"
+              class="link-quiet text-ink-secondary underline-offset-4 transition-[color] duration-150 ease-out-quart hover:underline"
+            >
+              Términos
             </a>
           </nav>
         </div>
@@ -108,18 +134,58 @@ const year = new Date().getFullYear();
     </footer>
     <script>
       const revealables = document.querySelectorAll(".reveal");
-      const observer = new IntersectionObserver(
+      const revealObserver = new IntersectionObserver(
         (entries) => {
           for (const entry of entries) {
             if (entry.isIntersecting) {
               entry.target.setAttribute("data-visible", "");
-              observer.unobserve(entry.target);
+              revealObserver.unobserve(entry.target);
             }
           }
         },
         { rootMargin: "0px 0px -15% 0px", threshold: 0 },
       );
-      revealables.forEach((element) => observer.observe(element));
+      revealables.forEach((element) => revealObserver.observe(element));
+
+      const navLinks = Array.from(
+        document.querySelectorAll<HTMLAnchorElement>("[data-nav-link]"),
+      );
+      const sections = navLinks
+        .map((link) => {
+          const id = link.dataset.navLink;
+          if (!id) return null;
+          const section = document.querySelector(id);
+          return section ? { link, section } : null;
+        })
+        .filter((item): item is { link: HTMLAnchorElement; section: Element } =>
+          Boolean(item),
+        );
+
+      if (sections.length > 0) {
+        const activate = (active: HTMLAnchorElement | null) => {
+          for (const { link } of sections) {
+            if (link === active) {
+              link.setAttribute("aria-current", "location");
+            } else {
+              link.removeAttribute("aria-current");
+            }
+          }
+        };
+
+        const spy = new IntersectionObserver(
+          (entries) => {
+            const visible = entries
+              .filter((entry) => entry.isIntersecting)
+              .sort((a, b) => b.intersectionRatio - a.intersectionRatio)[0];
+            if (!visible) return;
+            const match = sections.find(({ section }) => section === visible.target);
+            if (match) activate(match.link);
+          },
+          { rootMargin: "-30% 0px -50% 0px", threshold: [0.1, 0.35, 0.6] },
+        );
+
+        sections.forEach(({ section }) => spy.observe(section));
+      }
     </script>
   </body>
 </html>
