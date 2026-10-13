@@ -1,0 +1,27 @@
+---
+interface Item {
+  question: string;
+  answer: string;
+}
+
+interface Props {
+  items: readonly Item[];
+}
+
+const { items } = Astro.props;
+---
+
+<div class="mt-16 flex flex-col gap-4">
+  {
+    items.map((item) => (
+      <details class="faq-item rounded-xl border border-border px-6 py-2">
+        <summary class="faq-summary text-base font-medium text-ink">
+          <span class="min-w-0 flex-1 text-pretty">{item.question}</span>
+        </summary>
+        <p class="mt-2 mb-4 max-w-2xl text-base leading-relaxed text-pretty text-ink-secondary">
+          {item.answer}
+        </p>
+      </details>
+    ))
+  }
+</div>

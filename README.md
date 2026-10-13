@@ -54,11 +54,23 @@ npm run test:copy
 
 `test:copy` expects a completed `npm run build`. With the Cloudflare adapter, Home HTML is at `dist/client/index.html`. It asserts Home copy, the four official capabilities, Brand Foundations colors, and the absence of an invented email.
 
-## Cloudflare (Workers preview)
+## Social image
+
+`public/og.png` (1200×630) is generated from `scripts/og/og.html`, which uses `src/assets/mark.webp` and the bundled Inter file in `scripts/og/fonts`. Regenerate it with Chrome after editing the page:
+
+```bash
+"/Applications/Google Chrome.app/Contents/MacOS/Google Chrome" --headless=new --hide-scrollbars \
+  --force-device-scale-factor=1 --window-size=1200,630 --virtual-time-budget=3000 \
+  --screenshot="$PWD/public/og.png" "file://$PWD/scripts/og/og.html"
+```
+
+Keep the file under 150 KB and check that no text is cut off.
+
+## Cloudflare (Workers)
 
 Official Astro 2026 support is `@astrojs/cloudflare` on **Cloudflare Workers** (not Pages Functions). This site stays static-friendly: Home is prerendered.
 
-Do **not** attach `davionsoftware.com`, do **not** change DNS, and do **not** deploy this Worker to a production custom domain.
+Production is the Worker `davion-software-website` on `davionsoftware.com` and `www.davionsoftware.com`. Preview remains on `*.workers.dev`.
 
 ### Origin is the source of truth
 
@@ -76,7 +88,7 @@ npx wrangler dev
 
 ### Workers preview (`*.workers.dev`)
 
-Requires a Cloudflare account and Wrangler login. Does not buy a domain and does not change DNS.
+Requires a Cloudflare account and Wrangler login. `wrangler deploy` publishes the Worker and attaches the custom domains in `wrangler.jsonc`.
 
 ```bash
 npx wrangler login
@@ -84,9 +96,9 @@ npx astro build
 npx wrangler deploy
 ```
 
-Wrangler prints a `https://davion-software-website.<subdomain>.workers.dev` URL. Use that preview only.
+Wrangler prints a `https://davion-software-website.<subdomain>.workers.dev` preview URL, and deploys the custom domains in `wrangler.jsonc`.
 
-Without credentials, agents can use a 60-minute temporary preview (still no custom domain):
+Without credentials, agents can use a 60-minute temporary preview (no custom domain):
 
 ```bash
 npx astro build
@@ -103,18 +115,16 @@ npx astro build
 npx wrangler pages deploy ./dist/client --project-name davion-software-website
 ```
 
-Do not pass a custom domain. Do not configure `davionsoftware.com`.
-
-## Preview without production
-
-Production deploy, DNS, and paid hosting are **out of scope** until David gives A3.
-
-1. Keep this branch as a pull request against `main`. Do not merge to `main` as production.
-2. Hosted preview is Workers `*.workers.dev` or Pages `*.pages.dev` only (commands above).
-3. Do not attach `davionsoftware.com`, do not change DNS, and do not promote the preview to production.
+Do not pass a custom domain here. Production DNS stays on the Worker routes in `wrangler.jsonc`.
 
 Local preview is always available with `npm run build && npm run preview`.
 
 ## Production
 
-Out of scope. Do not deploy `main` to production from this work.
+The Worker `davion-software-website` serves:
+
+- https://davionsoftware.com
+- https://www.davionsoftware.com
+- https://davion-software-website.davidvargas-d45.workers.dev
+
+Deploy with `npx astro build && npx wrangler deploy`.

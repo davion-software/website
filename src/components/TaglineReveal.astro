@@ -1,0 +1,31 @@
+---
+interface Props {
+  lines: readonly string[];
+}
+
+const { lines } = Astro.props;
+const before = lines[0] ?? "";
+const after = lines[1] ?? "";
+---
+
+<section class="bg-surface-1" aria-labelledby="tagline-heading">
+  <div class="mx-auto w-full max-w-6xl px-6 py-16 sm:px-8 md:py-24">
+    <h2
+      id="tagline-heading"
+      class="tagline flex max-w-4xl flex-col gap-6 tracking-tight"
+    >
+      <span
+        class="tagline-before text-heading leading-tight font-medium text-balance md:text-title"
+      >
+        <span class="tagline-before-copy">{before}</span>
+      </span>
+      {
+        after && (
+          <span class="tagline-after text-title leading-none font-medium text-balance lg:text-display">
+            {after}
+          </span>
+        )
+      }
+    </h2>
+  </div>
+</section>

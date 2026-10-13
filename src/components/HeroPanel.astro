@@ -1,0 +1,59 @@
+---
+const rows = [
+  { label: "Pendiente", tone: "idle", main: 78, side: 40 },
+  { label: "En curso", tone: "active", main: 62, side: 52 },
+  { label: "Listo", tone: "done", main: 90, side: 34 },
+] as const;
+---
+
+<g transform="translate(214 31)">
+  <rect width="266" height="198" rx="12" class="fill-surface-1 stroke-steel" />
+  <path
+    d="M12 0h40v198H12a12 12 0 0 1-12-12V12A12 12 0 0 1 12 0Z"
+    class="fill-surface-0"
+  ></path>
+  <rect x="15" y="16" width="22" height="22" rx="6" class="fill-accent"></rect>
+  <rect x="15" y="54" width="22" height="4" rx="2" class="fill-steel"></rect>
+  <rect x="15" y="72" width="22" height="4" rx="2" class="fill-steel"></rect>
+  <rect x="15" y="90" width="22" height="4" rx="2" class="fill-steel"></rect>
+  <rect x="70" y="16" width="100" height="10" rx="5" class="fill-ink/70"></rect>
+  <rect x="70" y="34" width="60" height="6" rx="3" class="fill-ink/25"></rect>
+  {
+    rows.map((row, index) => {
+      const y = 54 + index * 46;
+      return (
+        <g>
+          <rect x="70" y={y} width="184" height="38" rx="8" class="fill-surface-0/60 stroke-steel" />
+          <rect x="82" y={y + 11} width={row.main * 0.8} height="6" rx="3" class="fill-ink/50"></rect>
+          <rect x="82" y={y + 23} width={row.side * 0.8} height="4" rx="2" class="fill-ink/20"></rect>
+          <rect
+            x="168"
+            y={y + 8}
+            width="74"
+            height="22"
+            rx="11"
+            class:list={[
+              row.tone === "idle" && "fill-steel",
+              row.tone === "active" && "fill-accent/25",
+              row.tone === "done" && "fill-accent",
+            ]}
+          />
+          <text
+            x="205"
+            y={y + 23}
+            text-anchor="middle"
+            font-size="11"
+            font-weight="600"
+            class:list={[
+              row.tone === "idle" && "fill-ink/70",
+              row.tone === "active" && "fill-accent",
+              row.tone === "done" && "fill-surface-0",
+            ]}
+          >
+            {row.label}
+          </text>
+        </g>
+      );
+    })
+  }
+</g>

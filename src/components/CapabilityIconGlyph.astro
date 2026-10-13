@@ -1,0 +1,44 @@
+---
+import type { CapabilityIcon } from "../content/home";
+
+interface Props {
+  name: CapabilityIcon;
+}
+
+const { name } = Astro.props;
+
+function iconPath(icon: CapabilityIcon): string {
+  switch (icon) {
+    case "product":
+      return "M12 3 4 7.5v9L12 21l8-4.5v-9L12 3Zm0 9 8-4.5M12 12v9M12 12 4 7.5";
+    case "internal":
+      return "M4 5h16v14H4V5Zm0 5.5h16M9.5 5v14";
+    case "automation":
+      return "M13 2 4 14h7l-1 8 9-12h-7l1-8Z";
+    case "modernization":
+      return "M20 11a8 8 0 0 0-14.9-3M4 4v4h4M4 13a8 8 0 0 0 14.9 3M20 20v-4h-4";
+    case "messaging":
+      return "M21 12a8 8 0 0 1-11.6 7.1L4 20l1-4.6A8 8 0 1 1 21 12Z";
+    default: {
+      const _exhaustive: never = icon;
+      return _exhaustive;
+    }
+  }
+}
+---
+
+<svg
+  aria-hidden="true"
+  focusable="false"
+  width="28"
+  height="28"
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="1.5"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+  class="size-7 shrink-0 text-accent"
+>
+  <path d={iconPath(name)}></path>
+</svg>

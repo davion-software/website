@@ -5,6 +5,7 @@ import { defineConfig, fontProviders } from "astro/config";
 
 // https://astro.build/config
 export default defineConfig({
+  site: "https://davionsoftware.com",
   adapter: cloudflare({
     // Static Home page: transform any images at build time. Do not provision
     // Cloudflare Images or session KV for this marketing site.

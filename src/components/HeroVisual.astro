@@ -1,0 +1,76 @@
+---
+import HeroPanel from "./HeroPanel.astro";
+
+const sheetRows = [0, 1, 2, 3, 4];
+const sheetCols = [0, 1, 2];
+const cellWidths = [22, 14, 30, 10, 26, 18, 8, 28, 16, 24, 12, 20, 30, 9, 18];
+---
+
+<div aria-hidden="true" class="w-full max-w-md lg:max-w-none">
+  <svg
+    viewBox="0 0 480 260"
+    width="480"
+    height="260"
+    class="hidden aspect-[480/260] h-auto w-full md:block"
+    focusable="false"
+  >
+    <g transform="rotate(-5 90 110)">
+      <rect x="10" y="40" width="170" height="130" rx="6" class="fill-surface-1 stroke-steel" />
+      <rect x="10" y="40" width="170" height="22" rx="6" class="fill-steel/60"></rect>
+      {
+        sheetCols.map((col) => (
+          <line x1={66 + col * 38} y1="40" x2={66 + col * 38} y2="170" class="stroke-steel" />
+        ))
+      }
+      {
+        sheetRows.map((row) => (
+          <line x1="10" y1={62 + row * 21.6} x2="180" y2={62 + row * 21.6} class="stroke-steel" />
+        ))
+      }
+      {
+        sheetRows.map((row) =>
+          sheetCols.map((col) => (
+            <rect
+              x={72 + col * 38}
+              y={69 + row * 21.6}
+              width={cellWidths[row * 3 + col] ?? 12}
+              height="5"
+              rx="2.5"
+              class="fill-ink/25"
+            />
+          ))
+        )
+      }
+    </g>
+    <g transform="rotate(4 70 205)">
+      <rect x="14" y="180" width="118" height="30" rx="12" class="fill-steel/70" />
+      <rect x="26" y="192" width="70" height="5" rx="2.5" class="fill-ink/35"></rect>
+    </g>
+    <g transform="rotate(-3 120 232)">
+      <rect x="64" y="216" width="112" height="30" rx="12" class="fill-davion-gray/40" />
+      <rect x="76" y="228" width="52" height="5" rx="2.5" class="fill-ink/35"></rect>
+    </g>
+    <g transform="rotate(7 160 60)">
+      <rect x="120" y="8" width="84" height="28" rx="12" class="fill-steel/60" />
+      <rect x="132" y="19" width="40" height="5" rx="2.5" class="fill-ink/30"></rect>
+    </g>
+    <path
+      d="M188 130h18m-8-9 8 9-8 9"
+      fill="none"
+      stroke-width="2.5"
+      stroke-linecap="round"
+      stroke-linejoin="round"
+      class="stroke-accent"
+    ></path>
+    <HeroPanel />
+  </svg>
+  <svg
+    viewBox="214 31 266 198"
+    width="266"
+    height="198"
+    class="mx-auto aspect-[266/198] h-auto w-full max-w-[17rem] md:hidden"
+    focusable="false"
+  >
+    <HeroPanel />
+  </svg>
+</div>

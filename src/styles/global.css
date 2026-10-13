@@ -1,5 +1,33 @@
 @import "tailwindcss";
 
+/*
+ * Design tokens
+ *
+ * Surfaces (dark canvas): surface-0 page, surface-1 raised band, surface-2 cards
+ * placed on surface-1. surface-light is the inverted band (contact).
+ * Cards on surface-0 use surface-1; cards on surface-1 use surface-2.
+ *
+ * Ink (text and icons): ink > ink-secondary > ink-tertiary on dark surfaces;
+ * ink-on-light and ink-on-light-secondary on surface-light. Every pair is >= 4.5:1.
+ *
+ * Borders: border and border-light are decorative separators (alpha, below 3:1).
+ * border-strong and border-strong-light are >= 3:1 against their surface and
+ * are the only borders allowed on controls.
+ *
+ * Accent: gold. accent-hover / accent-active are the primary button states,
+ * text on it is on-accent. focus-ring is used on dark surfaces and
+ * focus-ring-on-light on surface-light (gold fails 3:1 there). disabled /
+ * disabled-ink style inert buttons.
+ *
+ * Spacing scale (px): 4 / 8 / 12 / 16 / 24 / 32 / 48 / 64 / 96, that is the
+ * Tailwind steps 1 / 2 / 3 / 4 / 6 / 8 / 12 / 16 / 24. Use no other steps for
+ * padding, margin or gap. Section rhythm: py-16 on mobile, md:py-24 from 768px.
+ *
+ * Type scale (px): sm 14 / base 16 / lg 18 / heading 24 / title 36 / display 56.
+ * Utilities: text-sm, text-base, text-lg, text-heading, text-title, text-display.
+ * Responsive sizes move only between these steps.
+ */
+
 @theme inline {
   --font-sans: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
 
@@ -10,28 +38,57 @@
   --color-gold: #d1a744;
   --color-soft-white: #fefefe;
 
-  /* Dark-canvas ink ladder (Scandinavian): alpha white over near-black. */
-  --color-ink-secondary: rgb(254 254 254 / 0.68);
-  --color-ink-tertiary: rgb(254 254 254 / 0.52);
-  --color-line: rgb(254 254 254 / 0.12);
-  --color-line-strong: rgb(254 254 254 / 0.2);
-  --color-wash-hover: rgb(254 254 254 / 0.08);
-  --color-wash-press: rgb(254 254 254 / 0.14);
+  --color-surface-0: #0a0a0a;
+  --color-surface-1: #171d26;
+  --color-surface-2: #222a35;
+  --color-surface-light: #fefefe;
 
-  /* Ladder for the inverted light band (charcoal ink on soft white). */
-  --color-ink-on-light-secondary: rgb(23 29 38 / 0.68);
-  --color-line-on-light: rgb(23 29 38 / 0.16);
-  --color-line-on-light-strong: rgb(23 29 38 / 0.28);
-  --color-wash-on-light: rgb(23 29 38 / 0.05);
+  --color-ink: #fefefe;
+  --color-ink-secondary: #c3c6cb;
+  --color-ink-tertiary: #9fa4ab;
+  --color-ink-on-light: #171d26;
+  --color-ink-on-light-secondary: #4b525c;
+
+  --color-border: rgb(254 254 254 / 0.14);
+  --color-border-strong: #7d838c;
+  --color-border-light: rgb(23 29 38 / 0.16);
+  --color-border-strong-light: #6b727c;
+
+  --color-accent: #d1a744;
+  --color-accent-hover: #dfba5e;
+  --color-accent-active: #b8902f;
+  --color-on-accent: #0a0a0a;
+  --color-focus-ring: #d1a744;
+  --color-focus-ring-on-light: #171d26;
+  --color-disabled: #2f333c;
+  --color-disabled-ink: #9fa4ab;
+
+  --color-wash-hover: rgb(254 254 254 / 0.08);
+  --color-wash-on-light: rgb(23 29 38 / 0.06);
+
+  --text-*: initial;
+  --text-sm: 0.875rem;
+  --text-sm--line-height: 1.5;
+  --text-base: 1rem;
+  --text-base--line-height: 1.6;
+  --text-lg: 1.125rem;
+  --text-lg--line-height: 1.6;
+  --text-heading: 1.5rem;
+  --text-heading--line-height: 1.2;
+  --text-title: 2.25rem;
+  --text-title--line-height: 1.1;
+  --text-display: 3.5rem;
+  --text-display--line-height: 1.05;
 
   --ease-out-quart: cubic-bezier(0.23, 1, 0.32, 1);
   --ease-in-out-quart: cubic-bezier(0.77, 0, 0.175, 1);
+  --ease-fluid: cubic-bezier(0.32, 0.72, 0, 1);
 }
 
 @layer base {
   html {
-    background-color: var(--color-davion-black);
-    color: var(--color-soft-white);
+    background-color: var(--color-surface-0);
+    color: var(--color-ink);
     color-scheme: dark;
     font-family: var(--font-sans);
     -webkit-font-smoothing: antialiased;
@@ -41,110 +98,216 @@
   }
 
   body {
-    background-color: var(--color-davion-black);
-    color: var(--color-soft-white);
+    background-color: var(--color-surface-0);
+    color: var(--color-ink);
     margin: 0;
   }
 
   :focus-visible {
-    outline: 2px solid var(--color-gold);
+    outline: 2px solid var(--color-focus-ring);
     outline-offset: 3px;
   }
 
+  .surface-light :focus-visible {
+    outline-color: var(--color-focus-ring-on-light);
+  }
+
   ::selection {
-    background-color: var(--color-gold);
-    color: var(--color-charcoal);
-  }
-}
-
-/* Content stays visible if motion never runs. */
-@keyframes rise-in {
-  from {
-    opacity: 0;
-    transform: translateY(12px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-@keyframes mark-in {
-  from {
-    opacity: 0;
-    transform: scale(0.97);
-  }
-  to {
-    opacity: 1;
-    transform: scale(1);
+    background-color: var(--color-accent);
+    color: var(--color-on-accent);
   }
 }
 
 @media (prefers-reduced-motion: no-preference) {
-  .rise {
-    animation: rise-in 0.5s var(--ease-out-quart) both;
-  }
-
-  .rise-2 {
-    animation-delay: 80ms;
-  }
-
-  .rise-3 {
-    animation-delay: 160ms;
-  }
-
-  .mark-enter {
-    animation: mark-in 0.5s var(--ease-out-quart) 160ms both;
-  }
-
   html.js .reveal [data-reveal-item] {
     opacity: 0;
-    transform: translateY(12px);
+    transform: translateY(10px);
     transition:
-      opacity 0.25s var(--ease-out-quart),
-      transform 0.25s var(--ease-out-quart);
+      opacity 0.35s var(--ease-out-quart),
+      transform 0.35s var(--ease-out-quart);
   }
 
   html.js .reveal[data-visible] [data-reveal-item] {
     opacity: 1;
-    transform: translateY(0);
+    transform: none;
+  }
+}
+
+.tagline-before {
+  position: relative;
+  display: block;
+  width: fit-content;
+  max-width: 100%;
+  color: var(--color-ink-tertiary);
+}
+
+.tagline-before-copy {
+  background: linear-gradient(var(--color-accent), var(--color-accent)) 0 63% / 100% 2px no-repeat;
+  box-decoration-break: clone;
+  -webkit-box-decoration-break: clone;
+}
+
+.tagline-after {
+  color: var(--color-ink);
+}
+
+html.js .tagline-before-copy {
+  background-size: 0 2px;
+  transition: background-size 0.4s var(--ease-out-quart);
+}
+
+html.js .tagline[data-visible] .tagline-before-copy {
+  background-size: 100% 2px;
+}
+
+html.js .tagline-after {
+  color: var(--color-ink-tertiary);
+  transform: translateY(10px);
+  transition:
+    color 0.4s var(--ease-out-quart) 0.3s,
+    transform 0.4s var(--ease-out-quart) 0.3s;
+}
+
+html.js .tagline[data-visible] .tagline-after {
+  color: var(--color-ink);
+  transform: translateY(0);
+}
+
+.menu-button {
+  display: none;
+}
+
+html.js .menu-button {
+  display: inline-flex;
+}
+
+@media (min-width: 48rem) {
+  html.js .menu-button {
+    display: none;
+  }
+}
+
+@media (max-width: 47.99rem) {
+  html.js .site-nav {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    flex-direction: column;
+    align-items: stretch;
+    padding: 0 24px 8px;
+    background-color: var(--color-surface-0);
+    border-bottom: 1px solid var(--color-border);
   }
 
-  html.js .reveal[data-visible] [data-reveal-item]:nth-child(2) {
-    transition-delay: 60ms;
+  html.js .site-nav[data-open] {
+    display: flex;
   }
 
-  html.js .reveal[data-visible] [data-reveal-item]:nth-child(3) {
-    transition-delay: 120ms;
+  html.js .site-nav a {
+    min-height: 48px;
   }
+}
 
-  html.js .reveal[data-visible] [data-reveal-item]:nth-child(4) {
-    transition-delay: 180ms;
-  }
+.js-only {
+  display: none;
+}
+
+html.js .js-only {
+  display: inline-flex;
+}
+
+.faq-summary {
+  cursor: pointer;
+  display: flex;
+  min-height: 48px;
+  list-style: none;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  white-space: normal;
+}
+
+.faq-summary::-webkit-details-marker {
+  display: none;
+}
+
+.faq-summary::after {
+  content: "";
+  width: 12px;
+  height: 12px;
+  flex-shrink: 0;
+  background:
+    linear-gradient(var(--color-ink), var(--color-ink)) center / 12px 2px
+      no-repeat,
+    linear-gradient(var(--color-ink), var(--color-ink)) center / 2px 12px
+      no-repeat;
+  transition: transform 0.7s var(--ease-fluid);
+}
+
+.faq-item[open] .faq-summary::after {
+  transform: rotate(45deg);
+}
+
+.btn-primary:active {
+  background-color: var(--color-accent-active);
+}
+
+.btn-primary[aria-disabled="true"],
+.btn-secondary[aria-disabled="true"],
+.btn-secondary-on-light[aria-disabled="true"] {
+  background-color: var(--color-disabled);
+  border-color: transparent;
+  color: var(--color-disabled-ink);
+  cursor: not-allowed;
+  pointer-events: none;
 }
 
 @media (hover: hover) and (pointer: fine) {
   .btn-primary:hover {
-    background-color: color-mix(in srgb, var(--color-gold) 90%, transparent);
+    background-color: var(--color-accent-hover);
   }
 
-  .btn-secondary:hover {
-    border-color: var(--color-line-strong);
+  .btn-secondary:hover,
+  .btn-secondary-on-light:hover {
     background-color: var(--color-wash-hover);
   }
 
   .btn-secondary-on-light:hover {
-    border-color: var(--color-line-on-light-strong);
     background-color: var(--color-wash-on-light);
   }
 
-  .link-quiet:hover {
-    color: var(--color-soft-white);
+  .faq-item:hover {
+    border-color: var(--color-border-strong);
   }
+
+  .link-quiet:hover {
+    color: var(--color-ink);
+  }
+}
+
+.link-quiet[aria-current="location"] {
+  color: var(--color-ink);
 }
 
 @media (prefers-reduced-motion: reduce) {
   html {
     scroll-behavior: auto;
+  }
+
+  html.js .tagline-before-copy {
+    background-size: 100% 2px;
+    transition: none;
+  }
+
+  html.js .tagline-after {
+    color: var(--color-ink);
+    transform: none;
+    transition: none;
+  }
+
+  .faq-summary::after {
+    transition: none;
   }
 }
