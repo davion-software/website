@@ -141,30 +141,23 @@
   color: var(--color-ink-tertiary);
 }
 
-.tagline-strike-copy {
-  position: absolute;
-  inset: 0;
-  color: transparent;
-  pointer-events: none;
-  user-select: none;
-  text-decoration-line: line-through;
-  text-decoration-color: var(--color-accent);
-  text-decoration-thickness: 2px;
-  text-decoration-skip-ink: none;
-  clip-path: inset(0 0 0 0);
+.tagline-before-copy {
+  background: linear-gradient(var(--color-accent), var(--color-accent)) 0 63% / 100% 2px no-repeat;
+  box-decoration-break: clone;
+  -webkit-box-decoration-break: clone;
 }
 
 .tagline-after {
   color: var(--color-ink);
 }
 
-html.js .tagline-strike-copy {
-  clip-path: inset(0 100% 0 0);
-  transition: clip-path 0.4s var(--ease-out-quart);
+html.js .tagline-before-copy {
+  background-size: 0 2px;
+  transition: background-size 0.4s var(--ease-out-quart);
 }
 
-html.js .tagline[data-visible] .tagline-strike-copy {
-  clip-path: inset(0 0% 0 0);
+html.js .tagline[data-visible] .tagline-before-copy {
+  background-size: 100% 2px;
 }
 
 html.js .tagline-after {
@@ -303,8 +296,8 @@ html.js .js-only {
     scroll-behavior: auto;
   }
 
-  html.js .tagline-strike-copy {
-    clip-path: inset(0 0 0 0);
+  html.js .tagline-before-copy {
+    background-size: 100% 2px;
     transition: none;
   }
 

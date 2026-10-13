@@ -18,13 +18,6 @@ const after = lines[1] ?? "";
         class="tagline-before text-heading leading-tight font-medium text-balance md:text-title"
       >
         <span class="tagline-before-copy">{before}</span>
-        {
-          before && (
-            <span class="tagline-strike-copy" aria-hidden="true">
-              {before}
-            </span>
-          )
-        }
       </span>
       {
         after && (
@@ -36,28 +29,3 @@ const after = lines[1] ?? "";
     </h2>
   </div>
 </section>
-
-<script>
-  const heading = document.getElementById("tagline-heading");
-
-  if (heading) {
-    const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-
-    if (reduce || !("IntersectionObserver" in window)) {
-      heading.setAttribute("data-visible", "");
-    } else {
-      const observer = new IntersectionObserver(
-        (entries) => {
-          for (const entry of entries) {
-            if (!entry.isIntersecting) continue;
-            entry.target.setAttribute("data-visible", "");
-            observer.unobserve(entry.target);
-          }
-        },
-        { root: null, rootMargin: "0px 0px -30% 0px", threshold: 0 },
-      );
-
-      observer.observe(heading);
-    }
-  }
-</script>

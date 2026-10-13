@@ -220,6 +220,45 @@ const isHome = Astro.url.pathname === "/";
 
         sections.forEach(({ section }) => spy.observe(section));
       }
+
+      const taglineHeading = document.getElementById("tagline-heading");
+      if (taglineHeading) {
+        const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+        if (reduceMotion || !("IntersectionObserver" in window)) {
+          taglineHeading.setAttribute("data-visible", "");
+        } else {
+          const taglineObserver = new IntersectionObserver(
+            (entries) => {
+              for (const entry of entries) {
+                if (!entry.isIntersecting) continue;
+                entry.target.setAttribute("data-visible", "");
+                taglineObserver.unobserve(entry.target);
+              }
+            },
+            { root: null, rootMargin: "0px 0px -30% 0px", threshold: 0 },
+          );
+          taglineObserver.observe(taglineHeading);
+        }
+      }
+
+      const copyButton = document.querySelector<HTMLButtonElement>("[data-copy-email]");
+      const copyStatus = document.querySelector<HTMLElement>("[data-copy-status]");
+      if (copyButton && copyStatus) {
+        let copyTimer: number | undefined;
+        copyButton.addEventListener("click", async () => {
+          let message = copyButton.dataset.copied ?? "";
+          try {
+            await navigator.clipboard.writeText(copyButton.dataset.copyEmail ?? "");
+          } catch {
+            message = copyButton.dataset.failed ?? "";
+          }
+          copyStatus.textContent = message;
+          window.clearTimeout(copyTimer);
+          copyTimer = window.setTimeout(() => {
+            copyStatus.textContent = "";
+          }, 4000);
+        });
+      }
     </script>
   </body>
 </html>
