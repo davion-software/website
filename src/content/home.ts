@@ -99,7 +99,7 @@ export const capabilities = [
     pain: "¿Tiene una idea de producto y no sabe por dónde empezar a construirla?",
     delivery:
       "Una primera versión usable para validar con usuarios reales, sobre una base técnica que aguanta crecer.",
-    tools: [] as string[],
+    tools: ["TypeScript", "Astro", "Flutter", "Supabase", "Cloudflare"] as string[],
   },
   {
     icon: "internal",
@@ -107,7 +107,7 @@ export const capabilities = [
     pain: "¿Su equipo copia los mismos datos en tres lugares?",
     delivery:
       "Un sistema a medida que reemplaza las hojas de cálculo: un solo lugar para registrar, consultar y reportar, con permisos por persona.",
-    tools: [] as string[],
+    tools: ["TypeScript", "Supabase", "PostgreSQL", "Metabase", "Google Sheets"] as string[],
   },
   {
     icon: "automation",
@@ -115,7 +115,7 @@ export const capabilities = [
     pain: "¿Alguien de su equipo pasa horas en tareas que se repiten igual cada semana?",
     delivery:
       "Integraciones entre sus herramientas, lectura automática de documentos y flujos que registran, avisan y responden sin trabajo manual.",
-    tools: [] as string[],
+    tools: ["n8n", "AWS Bedrock", "Cloudflare Workers", "Telegram", "Google Sheets"] as string[],
   },
   {
     icon: "modernization",
@@ -123,7 +123,7 @@ export const capabilities = [
     pain: "¿Su sistema actual es lento, difícil de cambiar o nadie se atreve a tocarlo?",
     delivery:
       "Una revisión del sistema existente y mejoras por etapas en interfaz, rendimiento y mantenimiento, sin detener la operación.",
-    tools: [] as string[],
+    tools: ["TypeScript", "Astro", "Tailwind CSS", "Cloudflare"] as string[],
   },
   {
     icon: "messaging",
@@ -131,7 +131,7 @@ export const capabilities = [
     pain: "¿Se le escapan consultas de clientes por WhatsApp, Instagram o Facebook?",
     delivery:
       "Una landing clara para su oferta y un agente que responde lo frecuente y deriva a su equipo lo que necesita una persona.",
-    tools: [] as string[],
+    tools: ["Astro", "Tailwind CSS", "n8n", "WhatsApp Business API"] as string[],
   },
 ] as const;
 

@@ -160,7 +160,7 @@ const jsonLd = {
                   {capability.delivery}
                 </p>
                 {capability.tools.length > 0 && (
-                  <ul class="mt-4 flex flex-wrap gap-2">
+                  <ul aria-label="Herramientas" class="mt-auto flex flex-wrap gap-2 pt-4">
                     {capability.tools.map((tool) => (
                       <li class="rounded-full border border-border px-3 py-1 text-sm text-ink-secondary">
                         {tool}
