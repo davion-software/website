@@ -46,6 +46,35 @@ export const principles = [
   },
 ] as const;
 
+export const processHeading = "Cómo trabajamos";
+
+export const process = [
+  {
+    title: "Diagnóstico",
+    description:
+      "Una videollamada de 30 minutos para entender cómo opera su equipo hoy y dónde se pierde el tiempo.",
+    receive: "Una recomendación de qué conviene automatizar primero.",
+  },
+  {
+    title: "Propuesta por escrito",
+    description:
+      "Alcance, plazos y costo quedan documentados antes de escribir una línea de código.",
+    receive: "Un documento que puede revisar, ajustar y aprobar.",
+  },
+  {
+    title: "Entregas pequeñas",
+    description:
+      "Avanzamos por partes que su equipo puede probar cada semana, no con una gran entrega al final.",
+    receive: "Avances funcionales que verifica en uso real.",
+  },
+  {
+    title: "Soporte",
+    description:
+      "Acompañamos la puesta en marcha y ajustamos el sistema con el uso diario.",
+    receive: "Contacto directo con quien construyó su sistema.",
+  },
+] as const;
+
 export const capabilitiesHeading = "Capacidades";
 
 export const capabilities = [
