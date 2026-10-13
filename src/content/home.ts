@@ -208,7 +208,17 @@ export const coda = {
   support:
     "Por videollamada. Cuéntenos qué le quita tiempo a su equipo y le decimos qué conviene automatizar primero. Sin contrato para conversar.",
   calendarAction: "Agendar en el calendario",
-  emailLabel: "O escríbanos a",
+  stepsLabel: "En la llamada",
+  steps: [
+    "Nos cuenta cómo opera su equipo hoy.",
+    "Identificamos dónde se pierde más tiempo.",
+    "Sale con una recomendación de qué automatizar primero.",
+  ],
+  directHeading: "¿Prefiere escribir?",
+  directBody: "Le responde directamente la persona que diseña y construye su sistema.",
+  emailLabel: "Correo",
+  phoneLabel: "WhatsApp",
+  phoneDisplay: "+51 996 004 562",
   copyAction: "Copiar correo",
   copied: "Correo copiado",
   copyFailed: "No se pudo copiar el correo",

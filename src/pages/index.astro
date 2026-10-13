@@ -246,55 +246,115 @@ const jsonLd = {
   </Section>
 
   <Section id="contacto" tone="light">
-    <div class="max-w-2xl">
-      <h2 class="text-heading leading-tight font-medium tracking-tight text-balance md:text-title">
-        {coda.heading}
-      </h2>
-      <p class="mt-6 text-lg text-pretty text-ink-on-light-secondary">
-        {coda.support}
-      </p>
-      <div class="mt-8 flex flex-wrap gap-3">
-        <Button
-          variant="primary"
-          href={links.whatsappDiagnostic}
-          rel="noopener noreferrer"
-          target="_blank"
-        >
-          {home.whatsappCta}
-        </Button>
-        {
-          links.calendar && (
-            <Button
-              variant="secondary"
-              surface="light"
-              href={links.calendar}
-              rel="noopener noreferrer"
-              target="_blank"
-            >
-              {coda.calendarAction}
-            </Button>
-          )
-        }
+    <div class="grid gap-12 lg:grid-cols-[minmax(0,7fr)_minmax(0,5fr)] lg:items-start lg:gap-16">
+      <div>
+        <p class="flex items-center gap-2 text-sm text-ink-on-light-secondary">
+          <span aria-hidden="true" class="inline-block size-2 rounded-full bg-accent"></span>
+          {home.availability}
+        </p>
+        <h2 class="mt-6 text-heading leading-tight font-medium tracking-tight text-balance md:text-title">
+          {coda.heading}
+        </h2>
+        <p class="mt-6 max-w-xl text-lg text-pretty text-ink-on-light-secondary">
+          {coda.support}
+        </p>
+        <p class="mt-8 text-sm font-medium tracking-widest text-ink-on-light-secondary uppercase">
+          {coda.stepsLabel}
+        </p>
+        <ol class="mt-4 flex flex-col gap-3">
+          {
+            coda.steps.map((step, index) => (
+              <li class="flex items-start gap-3 text-base text-pretty text-ink-on-light">
+                <span
+                  aria-hidden="true"
+                  class="inline-flex size-6 shrink-0 items-center justify-center rounded-full border border-border-strong-light text-sm font-medium"
+                >
+                  {index + 1}
+                </span>
+                <span class="pt-px">{step}</span>
+              </li>
+            ))
+          }
+        </ol>
+        <div class="mt-8 flex flex-wrap gap-3">
+          <Button
+            variant="primary"
+            href={links.whatsappDiagnostic}
+            rel="noopener noreferrer"
+            target="_blank"
+          >
+            {home.whatsappCta}
+          </Button>
+          {
+            links.calendar && (
+              <Button
+                variant="secondary"
+                surface="light"
+                href={links.calendar}
+                rel="noopener noreferrer"
+                target="_blank"
+              >
+                {coda.calendarAction}
+              </Button>
+            )
+          }
+        </div>
       </div>
-      <p class="mt-8 flex flex-wrap items-center gap-x-3 gap-y-2 text-base text-ink-on-light-secondary">
-        <span>{coda.emailLabel}</span>
-        <a
-          href={links.email}
-          class="inline-flex min-h-11 items-center font-medium text-ink-on-light underline underline-offset-4"
-        >
-          {links.emailAddress}
-        </a>
-        <button
-          type="button"
-          data-copy-email={links.emailAddress}
-          data-copied={coda.copied}
-          data-failed={coda.copyFailed}
-          class="js-only btn-secondary-on-light h-11 items-center rounded-lg border border-border-strong-light px-4 text-sm font-semibold text-ink-on-light"
-        >
-          {coda.copyAction}
-        </button>
-      </p>
-      <p aria-live="polite" data-copy-status class="mt-2 min-h-6 text-sm text-ink-on-light"></p>
+
+      <div class="rounded-xl border border-border-light bg-wash-on-light p-6 md:p-8">
+        <h3 class="text-lg font-semibold tracking-tight text-ink-on-light">{coda.directHeading}</h3>
+        <p class="mt-2 text-base text-pretty text-ink-on-light-secondary">{coda.directBody}</p>
+
+        <div class="mt-6 border-t border-border-light pt-6">
+          <p class="text-sm text-ink-on-light-secondary">{coda.emailLabel}</p>
+          <div class="mt-1 flex flex-wrap items-center justify-between gap-x-4 gap-y-2">
+            <a
+              href={links.email}
+              class="inline-flex min-h-11 items-center text-lg font-semibold break-words text-ink-on-light underline decoration-border-strong-light underline-offset-4"
+            >
+              {links.emailAddress}
+            </a>
+            <button
+              type="button"
+              data-copy-email={links.emailAddress}
+              data-copied={coda.copied}
+              data-failed={coda.copyFailed}
+              class="js-only btn-secondary-on-light h-11 items-center gap-2 rounded-lg border border-border-strong-light px-4 text-sm font-semibold text-ink-on-light transition-[background-color,transform] duration-150 ease-out-quart active:scale-[0.96]"
+            >
+              <svg
+                aria-hidden="true"
+                focusable="false"
+                width="16"
+                height="16"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                class="size-4"
+              >
+                <path data-copy-icon="idle" d="M8 8h12v12H8V8Zm-4 8V4h12" />
+                <path data-copy-icon="done" d="m5 12.5 4.5 4.5L19 7.5" class="hidden" />
+              </svg>
+              <span data-copy-label>{coda.copyAction}</span>
+            </button>
+          </div>
+        </div>
+
+        <div class="mt-6 border-t border-border-light pt-6">
+          <p class="text-sm text-ink-on-light-secondary">{coda.phoneLabel}</p>
+          <a
+            href={links.whatsapp}
+            rel="noopener noreferrer"
+            target="_blank"
+            class="mt-1 inline-flex min-h-11 items-center text-lg font-semibold text-ink-on-light underline decoration-border-strong-light underline-offset-4"
+          >
+            {coda.phoneDisplay}
+          </a>
+        </div>
+        <p aria-live="polite" data-copy-status class="sr-only"></p>
+      </div>
     </div>
   </Section>
 </Layout>
