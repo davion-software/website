@@ -221,11 +221,11 @@ const isHome = Astro.url.pathname === "/";
         sections.forEach(({ section }) => spy.observe(section));
       }
 
-      const taglineHeading = document.getElementById("tagline-heading");
-      if (taglineHeading) {
+      const taglineSection = document.getElementById("tagline");
+      if (taglineSection) {
         const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
         if (reduceMotion || !("IntersectionObserver" in window)) {
-          taglineHeading.setAttribute("data-visible", "");
+          taglineSection.setAttribute("data-visible", "");
         } else {
           const taglineObserver = new IntersectionObserver(
             (entries) => {
@@ -237,26 +237,33 @@ const isHome = Astro.url.pathname === "/";
             },
             { root: null, rootMargin: "0px 0px -30% 0px", threshold: 0 },
           );
-          taglineObserver.observe(taglineHeading);
+          taglineObserver.observe(taglineSection);
         }
       }
 
       const copyButton = document.querySelector<HTMLButtonElement>("[data-copy-email]");
       const copyStatus = document.querySelector<HTMLElement>("[data-copy-status]");
-      if (copyButton && copyStatus) {
+      const copyLabel = copyButton?.querySelector<HTMLElement>("[data-copy-label]");
+      const copyIdleIcon = copyButton?.querySelector("[data-copy-icon='idle']");
+      const copyDoneIcon = copyButton?.querySelector("[data-copy-icon='done']");
+      if (copyButton && copyStatus && copyLabel) {
+        const idleLabel = copyLabel.textContent ?? "";
         let copyTimer: number | undefined;
+        const showCopyState = (message: string, copied: boolean) => {
+          copyLabel.textContent = message;
+          copyStatus.textContent = message === idleLabel ? "" : message;
+          copyIdleIcon?.classList.toggle("hidden", copied);
+          copyDoneIcon?.classList.toggle("hidden", !copied);
+        };
         copyButton.addEventListener("click", async () => {
-          let message = copyButton.dataset.copied ?? "";
           try {
             await navigator.clipboard.writeText(copyButton.dataset.copyEmail ?? "");
+            showCopyState(copyButton.dataset.copied ?? "", true);
           } catch {
-            message = copyButton.dataset.failed ?? "";
+            showCopyState(copyButton.dataset.failed ?? "", false);
           }
-          copyStatus.textContent = message;
           window.clearTimeout(copyTimer);
-          copyTimer = window.setTimeout(() => {
-            copyStatus.textContent = "";
-          }, 4000);
+          copyTimer = window.setTimeout(() => showCopyState(idleLabel, false), 2500);
         });
       }
     </script>

@@ -26,7 +26,29 @@ export const tagline = {
     "Menos hojas de cálculo y chats.",
     "Un sistema de uso diario.",
   ],
+  support:
+    "La información que hoy vive repartida en archivos, grupos y la memoria de su equipo pasa a un solo lugar que todos usan cada día.",
+  before: {
+    label: "Hoy",
+    items: [
+      { icon: "sheet", text: "pedidos_final_v3 (copia).xlsx" },
+      { icon: "chat", text: "Grupo de WhatsApp «Pedidos», 214 sin leer" },
+      { icon: "copy", text: "Los mismos datos copiados en tres lugares" },
+      { icon: "clock", text: "El reporte del lunes, armado a mano" },
+    ],
+  },
+  after: {
+    label: "Con su sistema",
+    items: [
+      "Un solo registro, siempre actualizado",
+      "Avisos automáticos a la persona correcta",
+      "Cada dato se ingresa una sola vez",
+      "Reportes listos cuando los necesita",
+    ],
+  },
 } as const;
+
+export type TaglineIcon = (typeof tagline.before.items)[number]["icon"];
 
 export const principles = [
   {
@@ -186,7 +208,17 @@ export const coda = {
   support:
     "Por videollamada. Cuéntenos qué le quita tiempo a su equipo y le decimos qué conviene automatizar primero. Sin contrato para conversar.",
   calendarAction: "Agendar en el calendario",
-  emailLabel: "O escríbanos a",
+  stepsLabel: "En la llamada",
+  steps: [
+    "Nos cuenta cómo opera su equipo hoy.",
+    "Identificamos dónde se pierde más tiempo.",
+    "Sale con una recomendación de qué automatizar primero.",
+  ],
+  directHeading: "¿Prefiere escribir?",
+  directBody: "Le responde directamente la persona que diseña y construye su sistema.",
+  emailLabel: "Correo",
+  phoneLabel: "WhatsApp",
+  phoneDisplay: "+51 996 004 562",
   copyAction: "Copiar correo",
   copied: "Correo copiado",
   copyFailed: "No se pudo copiar el correo",
