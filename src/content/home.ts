@@ -75,6 +75,21 @@ export const process = [
   },
 ] as const;
 
+export const founder = {
+  enabled: true,
+  heading: "Quién construye",
+  name: "David Vargas Domínguez",
+  role: "Ingeniero de software",
+  statement:
+    "Diseño y construyo cada sistema de Davion, y respondo directamente sus preguntas durante el proyecto.",
+  photoAlt: "Retrato de David Vargas Domínguez",
+  links: [
+    { label: "GitHub", href: "https://github.com/thedavos" },
+    { label: "LinkedIn", href: "https://www.linkedin.com/in/thedavos/" },
+    { label: "davosdo.dev", href: "https://davosdo.dev" },
+  ],
+} as const;
+
 export const capabilitiesHeading = "Capacidades";
 
 export const capabilities = [
