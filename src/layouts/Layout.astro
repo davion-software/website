@@ -46,15 +46,15 @@ const isHome = Astro.url.pathname === "/";
       document.documentElement.classList.add("js");
     </script>
   </head>
-  <body class="min-h-dvh bg-davion-black font-sans text-soft-white">
+  <body class="min-h-dvh bg-surface-0 font-sans text-ink">
     <a
       href="#contenido"
-      class="sr-only focus:not-sr-only focus:absolute focus:left-4 focus:top-4 focus:z-50 focus:rounded-lg focus:bg-steel focus:px-4 focus:py-3 focus:text-sm focus:font-semibold"
+      class="sr-only focus:not-sr-only focus:absolute focus:left-4 focus:top-4 focus:z-50 focus:rounded-lg focus:bg-surface-2 focus:px-4 focus:py-3 focus:text-sm focus:font-semibold"
     >
       Saltar al contenido
     </a>
     <header
-      class="sticky top-0 z-20 border-b border-line bg-davion-black/90 backdrop-blur-md"
+      class="sticky top-0 z-20 border-b border-border bg-surface-0/90 backdrop-blur-md"
     >
       <div
         class="mx-auto flex w-full max-w-6xl flex-col gap-4 px-6 py-4 sm:h-16 sm:flex-row sm:items-center sm:justify-between sm:gap-0 sm:px-8 sm:py-0"
@@ -69,7 +69,7 @@ const isHome = Astro.url.pathname === "/";
               <a
                 href={isHome ? item.href : `/${item.href}`}
                 data-nav-link={isHome ? item.href : undefined}
-                class="link-quiet text-ink-secondary transition-[color] duration-150 ease-out-quart"
+                class="link-quiet inline-flex min-h-11 items-center text-ink-secondary transition-[color] duration-150 ease-out-quart"
               >
                 {item.label}
               </a>
@@ -81,10 +81,10 @@ const isHome = Astro.url.pathname === "/";
     <main id="contenido">
       <slot />
     </main>
-    <footer class="border-t border-line">
-      <div class="mx-auto w-full max-w-6xl px-6 py-10 sm:px-8 lg:py-12">
+    <footer class="border-t border-border">
+      <div class="mx-auto w-full max-w-6xl px-6 py-12 sm:px-8">
         <div
-          class="flex flex-col gap-10 sm:flex-row sm:items-start sm:justify-between"
+          class="flex flex-col gap-8 sm:flex-row sm:items-start sm:justify-between"
         >
           <div class="flex max-w-sm flex-col gap-4">
             <Lockup />
@@ -94,13 +94,13 @@ const isHome = Astro.url.pathname === "/";
           </div>
           <nav
             aria-label="Pie de página"
-            class="flex flex-col gap-2 text-sm sm:items-end"
+            class="flex flex-col text-sm sm:items-end"
           >
             {
               nav.map((item) => (
                 <a
                   href={isHome ? item.href : `/${item.href}`}
-                  class="link-quiet text-ink-secondary transition-[color] duration-150 ease-out-quart"
+                  class="link-quiet inline-flex min-h-11 items-center text-ink-secondary transition-[color] duration-150 ease-out-quart"
                 >
                   {item.label}
                 </a>
@@ -109,25 +109,25 @@ const isHome = Astro.url.pathname === "/";
             <a
               href={links.github}
               rel="me noopener"
-              class="link-quiet text-ink-secondary underline-offset-4 transition-[color] duration-150 ease-out-quart hover:underline"
+              class="link-quiet inline-flex min-h-11 items-center text-ink-secondary underline-offset-4 transition-[color] duration-150 ease-out-quart hover:underline"
             >
               GitHub
             </a>
             <a
               href="/privacidad"
-              class="link-quiet text-ink-secondary underline-offset-4 transition-[color] duration-150 ease-out-quart hover:underline"
+              class="link-quiet inline-flex min-h-11 items-center text-ink-secondary underline-offset-4 transition-[color] duration-150 ease-out-quart hover:underline"
             >
               Privacidad
             </a>
             <a
               href="/terminos"
-              class="link-quiet text-ink-secondary underline-offset-4 transition-[color] duration-150 ease-out-quart hover:underline"
+              class="link-quiet inline-flex min-h-11 items-center text-ink-secondary underline-offset-4 transition-[color] duration-150 ease-out-quart hover:underline"
             >
               Términos
             </a>
           </nav>
         </div>
-        <p class="mt-10 text-sm text-ink-tertiary">
+        <p class="mt-8 text-sm text-ink-tertiary">
           © {year} Davion Software
         </p>
       </div>

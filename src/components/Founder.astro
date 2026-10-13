@@ -6,7 +6,7 @@ import { founder } from "../content/home";
 
 {
   founder.enabled && (
-    <div class="mt-16 flex flex-col gap-6 rounded-xl border border-line bg-charcoal p-6 sm:flex-row sm:items-center">
+    <div class="mt-16 flex flex-col gap-6 rounded-xl border border-border bg-surface-1 p-6 sm:flex-row sm:items-center">
       <Image
         src={portrait}
         alt={founder.photoAlt}
@@ -17,10 +17,10 @@ import { founder } from "../content/home";
         class="size-28 shrink-0 rounded-full"
       />
       <div>
-        <h3 class="text-lg font-medium tracking-tight text-soft-white">
+        <h3 class="text-lg font-medium tracking-tight text-ink">
           {founder.heading}
         </h3>
-        <p class="mt-2 text-base text-soft-white">
+        <p class="mt-2 text-base text-ink">
           <span class="font-medium">{founder.name}</span>
           <span class="text-ink-secondary">, {founder.role}</span>
         </p>

@@ -1,5 +1,33 @@
 @import "tailwindcss";
 
+/*
+ * Design tokens
+ *
+ * Surfaces (dark canvas): surface-0 page, surface-1 raised band, surface-2 cards
+ * placed on surface-1. surface-light is the inverted band (contact).
+ * Cards on surface-0 use surface-1; cards on surface-1 use surface-2.
+ *
+ * Ink (text and icons): ink > ink-secondary > ink-tertiary on dark surfaces;
+ * ink-on-light and ink-on-light-secondary on surface-light. Every pair is >= 4.5:1.
+ *
+ * Borders: border and border-light are decorative separators (alpha, below 3:1).
+ * border-strong and border-strong-light are >= 3:1 against their surface and
+ * are the only borders allowed on controls.
+ *
+ * Accent: gold. accent-hover / accent-active are the primary button states,
+ * text on it is on-accent. focus-ring is used on dark surfaces and
+ * focus-ring-on-light on surface-light (gold fails 3:1 there). disabled /
+ * disabled-ink style inert buttons.
+ *
+ * Spacing scale (px): 4 / 8 / 12 / 16 / 24 / 32 / 48 / 64 / 96, that is the
+ * Tailwind steps 1 / 2 / 3 / 4 / 6 / 8 / 12 / 16 / 24. Use no other steps for
+ * padding, margin or gap. Section rhythm: py-16 on mobile, md:py-24 from 768px.
+ *
+ * Type scale (px): sm 14 / base 16 / lg 18 / heading 24 / title 36 / display 56.
+ * Utilities: text-sm, text-base, text-lg, text-heading, text-title, text-display.
+ * Responsive sizes move only between these steps.
+ */
+
 @theme inline {
   --font-sans: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
 
@@ -10,19 +38,47 @@
   --color-gold: #d1a744;
   --color-soft-white: #fefefe;
 
-  /* Dark-canvas ink ladder (Scandinavian): alpha white over near-black. */
-  --color-ink-secondary: rgb(254 254 254 / 0.68);
-  --color-ink-tertiary: rgb(254 254 254 / 0.52);
-  --color-line: rgb(254 254 254 / 0.12);
-  --color-line-strong: rgb(254 254 254 / 0.2);
-  --color-wash-hover: rgb(254 254 254 / 0.08);
-  --color-wash-press: rgb(254 254 254 / 0.14);
+  --color-surface-0: #0a0a0a;
+  --color-surface-1: #171d26;
+  --color-surface-2: #222a35;
+  --color-surface-light: #fefefe;
 
-  /* Ladder for the inverted light band (charcoal ink on soft white). */
-  --color-ink-on-light-secondary: rgb(23 29 38 / 0.68);
-  --color-line-on-light: rgb(23 29 38 / 0.16);
-  --color-line-on-light-strong: rgb(23 29 38 / 0.28);
-  --color-wash-on-light: rgb(23 29 38 / 0.05);
+  --color-ink: #fefefe;
+  --color-ink-secondary: #c3c6cb;
+  --color-ink-tertiary: #9fa4ab;
+  --color-ink-on-light: #171d26;
+  --color-ink-on-light-secondary: #4b525c;
+
+  --color-border: rgb(254 254 254 / 0.14);
+  --color-border-strong: #7d838c;
+  --color-border-light: rgb(23 29 38 / 0.16);
+  --color-border-strong-light: #6b727c;
+
+  --color-accent: #d1a744;
+  --color-accent-hover: #dfba5e;
+  --color-accent-active: #b8902f;
+  --color-on-accent: #0a0a0a;
+  --color-focus-ring: #d1a744;
+  --color-focus-ring-on-light: #171d26;
+  --color-disabled: #2f333c;
+  --color-disabled-ink: #9fa4ab;
+
+  --color-wash-hover: rgb(254 254 254 / 0.08);
+  --color-wash-on-light: rgb(23 29 38 / 0.06);
+
+  --text-*: initial;
+  --text-sm: 0.875rem;
+  --text-sm--line-height: 1.5;
+  --text-base: 1rem;
+  --text-base--line-height: 1.6;
+  --text-lg: 1.125rem;
+  --text-lg--line-height: 1.6;
+  --text-heading: 1.5rem;
+  --text-heading--line-height: 1.2;
+  --text-title: 2.25rem;
+  --text-title--line-height: 1.1;
+  --text-display: 3.5rem;
+  --text-display--line-height: 1.05;
 
   --ease-out-quart: cubic-bezier(0.23, 1, 0.32, 1);
   --ease-in-out-quart: cubic-bezier(0.77, 0, 0.175, 1);
@@ -31,8 +87,8 @@
 
 @layer base {
   html {
-    background-color: var(--color-davion-black);
-    color: var(--color-soft-white);
+    background-color: var(--color-surface-0);
+    color: var(--color-ink);
     color-scheme: dark;
     font-family: var(--font-sans);
     -webkit-font-smoothing: antialiased;
@@ -42,19 +98,23 @@
   }
 
   body {
-    background-color: var(--color-davion-black);
-    color: var(--color-soft-white);
+    background-color: var(--color-surface-0);
+    color: var(--color-ink);
     margin: 0;
   }
 
   :focus-visible {
-    outline: 2px solid var(--color-gold);
+    outline: 2px solid var(--color-focus-ring);
     outline-offset: 3px;
   }
 
+  .surface-light :focus-visible {
+    outline-color: var(--color-focus-ring-on-light);
+  }
+
   ::selection {
-    background-color: var(--color-gold);
-    color: var(--color-charcoal);
+    background-color: var(--color-accent);
+    color: var(--color-on-accent);
   }
 }
 
@@ -78,7 +138,7 @@
   display: block;
   width: fit-content;
   max-width: 100%;
-  color: rgb(254 254 254 / 0.32);
+  color: var(--color-ink-tertiary);
 }
 
 .tagline-strike-copy {
@@ -88,14 +148,14 @@
   pointer-events: none;
   user-select: none;
   text-decoration-line: line-through;
-  text-decoration-color: var(--color-gold);
+  text-decoration-color: var(--color-accent);
   text-decoration-thickness: 2px;
   text-decoration-skip-ink: none;
   clip-path: inset(0 0 0 0);
 }
 
 .tagline-after {
-  color: var(--color-soft-white);
+  color: var(--color-ink);
 }
 
 html.js .tagline-strike-copy {
@@ -108,7 +168,7 @@ html.js .tagline[data-visible] .tagline-strike-copy {
 }
 
 html.js .tagline-after {
-  color: rgb(254 254 254 / 0.3);
+  color: var(--color-ink-tertiary);
   transform: translateY(10px);
   transition:
     color 0.4s var(--ease-out-quart) 0.3s,
@@ -116,7 +176,7 @@ html.js .tagline-after {
 }
 
 html.js .tagline[data-visible] .tagline-after {
-  color: var(--color-soft-white);
+  color: var(--color-ink);
   transform: translateY(0);
 }
 
@@ -149,9 +209,9 @@ html.js .js-only {
   height: 12px;
   flex-shrink: 0;
   background:
-    linear-gradient(var(--color-soft-white), var(--color-soft-white)) center / 12px 2px
+    linear-gradient(var(--color-ink), var(--color-ink)) center / 12px 2px
       no-repeat,
-    linear-gradient(var(--color-soft-white), var(--color-soft-white)) center / 2px 12px
+    linear-gradient(var(--color-ink), var(--color-ink)) center / 2px 12px
       no-repeat;
   transition: transform 0.7s var(--ease-fluid);
 }
@@ -160,32 +220,45 @@ html.js .js-only {
   transform: rotate(45deg);
 }
 
+.btn-primary:active {
+  background-color: var(--color-accent-active);
+}
+
+.btn-primary[aria-disabled="true"],
+.btn-secondary[aria-disabled="true"],
+.btn-secondary-on-light[aria-disabled="true"] {
+  background-color: var(--color-disabled);
+  border-color: transparent;
+  color: var(--color-disabled-ink);
+  cursor: not-allowed;
+  pointer-events: none;
+}
+
 @media (hover: hover) and (pointer: fine) {
   .btn-primary:hover {
-    background-color: color-mix(in srgb, var(--color-gold) 90%, transparent);
+    background-color: var(--color-accent-hover);
   }
 
-  .btn-secondary:hover {
-    border-color: var(--color-line-strong);
+  .btn-secondary:hover,
+  .btn-secondary-on-light:hover {
     background-color: var(--color-wash-hover);
   }
 
   .btn-secondary-on-light:hover {
-    border-color: var(--color-line-on-light-strong);
     background-color: var(--color-wash-on-light);
   }
 
   .faq-item:hover {
-    border-color: var(--color-line-strong);
+    border-color: var(--color-border-strong);
   }
 
   .link-quiet:hover {
-    color: var(--color-soft-white);
+    color: var(--color-ink);
   }
 }
 
 .link-quiet[aria-current="location"] {
-  color: var(--color-soft-white);
+  color: var(--color-ink);
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -199,7 +272,7 @@ html.js .js-only {
   }
 
   html.js .tagline-after {
-    color: var(--color-soft-white);
+    color: var(--color-ink);
     transform: none;
     transition: none;
   }

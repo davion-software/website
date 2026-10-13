@@ -5,6 +5,7 @@ interface Props {
   surface?: "dark" | "light";
   rel?: string;
   target?: string;
+  disabled?: boolean;
   class?: string;
 }
 
@@ -14,6 +15,7 @@ const {
   surface = "dark",
   rel,
   target,
+  disabled = false,
   class: className,
 } = Astro.props;
 
@@ -23,13 +25,13 @@ function variantClass(
 ) {
   switch (nextVariant) {
     case "primary":
-      return "btn-primary bg-gold text-davion-black";
+      return "btn-primary bg-accent text-on-accent";
     case "secondary":
       switch (nextSurface) {
         case "dark":
-          return "btn-secondary border border-line text-soft-white";
+          return "btn-secondary border border-border-strong text-ink";
         case "light":
-          return "btn-secondary-on-light border border-line-on-light text-charcoal";
+          return "btn-secondary-on-light border border-border-strong-light text-ink-on-light";
         default: {
           const _exhaustive: never = nextSurface;
           return _exhaustive;
@@ -44,9 +46,11 @@ function variantClass(
 ---
 
 <a
-  href={href}
+  href={disabled ? undefined : href}
   rel={rel}
   target={target}
+  role={disabled ? "link" : undefined}
+  aria-disabled={disabled ? "true" : undefined}
   class:list={[
     "inline-flex h-12 items-center justify-center rounded-lg px-6 text-base font-semibold",
     "transition-[background-color,border-color,color,transform] duration-150 ease-out-quart",

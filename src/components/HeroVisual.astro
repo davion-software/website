@@ -15,7 +15,7 @@ const cellWidths = [22, 14, 30, 10, 26, 18, 8, 28, 16, 24, 12, 20, 30, 9, 18];
     focusable="false"
   >
     <g transform="rotate(-5 90 110)">
-      <rect x="10" y="40" width="170" height="130" rx="6" class="fill-charcoal stroke-steel" />
+      <rect x="10" y="40" width="170" height="130" rx="6" class="fill-surface-1 stroke-steel" />
       <rect x="10" y="40" width="170" height="22" rx="6" class="fill-steel/60"></rect>
       {
         sheetCols.map((col) => (
@@ -36,7 +36,7 @@ const cellWidths = [22, 14, 30, 10, 26, 18, 8, 28, 16, 24, 12, 20, 30, 9, 18];
               width={cellWidths[row * 3 + col] ?? 12}
               height="5"
               rx="2.5"
-              class="fill-soft-white/25"
+              class="fill-ink/25"
             />
           ))
         )
@@ -44,15 +44,15 @@ const cellWidths = [22, 14, 30, 10, 26, 18, 8, 28, 16, 24, 12, 20, 30, 9, 18];
     </g>
     <g transform="rotate(4 70 205)">
       <rect x="14" y="180" width="118" height="30" rx="12" class="fill-steel/70" />
-      <rect x="26" y="192" width="70" height="5" rx="2.5" class="fill-soft-white/35"></rect>
+      <rect x="26" y="192" width="70" height="5" rx="2.5" class="fill-ink/35"></rect>
     </g>
     <g transform="rotate(-3 120 232)">
       <rect x="64" y="216" width="112" height="30" rx="12" class="fill-davion-gray/40" />
-      <rect x="76" y="228" width="52" height="5" rx="2.5" class="fill-soft-white/35"></rect>
+      <rect x="76" y="228" width="52" height="5" rx="2.5" class="fill-ink/35"></rect>
     </g>
     <g transform="rotate(7 170 60)">
       <rect x="132" y="8" width="84" height="28" rx="12" class="fill-steel/60" />
-      <rect x="144" y="19" width="40" height="5" rx="2.5" class="fill-soft-white/30"></rect>
+      <rect x="144" y="19" width="40" height="5" rx="2.5" class="fill-ink/30"></rect>
     </g>
     <path
       d="M192 130h36m-9-9 9 9-9 9"
@@ -60,7 +60,7 @@ const cellWidths = [22, 14, 30, 10, 26, 18, 8, 28, 16, 24, 12, 20, 30, 9, 18];
       stroke-width="2.5"
       stroke-linecap="round"
       stroke-linejoin="round"
-      class="stroke-gold"
+      class="stroke-accent"
     ></path>
     <HeroPanel />
   </svg>

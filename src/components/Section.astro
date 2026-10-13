@@ -1,0 +1,36 @@
+---
+interface Props {
+  id?: string;
+  tone?: "base" | "raised" | "light";
+  compact?: boolean;
+  class?: string;
+}
+
+const { id, tone = "base", compact = false, class: className } = Astro.props;
+
+function toneClass(next: NonNullable<Props["tone"]>): string {
+  switch (next) {
+    case "base":
+      return "bg-surface-0 text-ink [--card-bg:var(--color-surface-1)]";
+    case "raised":
+      return "bg-surface-1 text-ink [--card-bg:var(--color-surface-2)]";
+    case "light":
+      return "surface-light bg-surface-light text-ink-on-light";
+    default: {
+      const _exhaustive: never = next;
+      return _exhaustive;
+    }
+  }
+}
+---
+
+<section id={id} class:list={["scroll-mt-16", toneClass(tone), className]}>
+  <div
+    class:list={[
+      "mx-auto w-full max-w-6xl px-6 sm:px-8",
+      !compact && "py-16 md:py-24",
+    ]}
+  >
+    <slot />
+  </div>
+</section>
