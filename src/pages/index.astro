@@ -5,7 +5,9 @@ import FaqList from "../components/FaqList.astro";
 import Founder from "../components/Founder.astro";
 import HeroVisual from "../components/HeroVisual.astro";
 import Layout from "../layouts/Layout.astro";
+import Projects from "../components/Projects.astro";
 import Section from "../components/Section.astro";
+import Testimonials from "../components/Testimonials.astro";
 import TaglineReveal from "../components/TaglineReveal.astro";
 import {
   capabilities,
@@ -105,31 +107,7 @@ const orgSchema = {
 
   <TaglineReveal lines={tagline.lines} />
 
-  <Section id="estudio" tone="base">
-    <h2 class="max-w-2xl text-heading leading-tight font-medium tracking-tight text-balance md:text-title">
-      {home.who}
-    </h2>
-    <p class="mt-6 max-w-2xl text-lg text-pretty text-ink-secondary">
-      {home.studioBody}
-    </p>
-    <ul class="reveal mt-12 grid gap-8 md:grid-cols-3">
-      {
-        principles.map((principle) => (
-          <li data-reveal-item class="border-t border-border pt-6">
-            <h3 class="text-lg font-semibold tracking-tight text-ink">
-              {principle.title}
-            </h3>
-            <p class="mt-2 text-base text-pretty text-ink-secondary">
-              {principle.description}
-            </p>
-          </li>
-        ))
-      }
-    </ul>
-    <Founder />
-  </Section>
-
-  <Section id="capacidades" tone="raised">
+  <Section id="capacidades" tone="base">
     <h2 class="text-heading leading-tight font-medium tracking-tight md:text-title">
       {capabilitiesHeading}
     </h2>
@@ -170,7 +148,7 @@ const orgSchema = {
     </ul>
   </Section>
 
-  <Section id="como-trabajamos" tone="base">
+  <Section id="como-trabajamos" tone="raised">
     <h2 class="text-heading leading-tight font-medium tracking-tight md:text-title">
       {processHeading}
     </h2>
@@ -198,6 +176,34 @@ const orgSchema = {
       }
     </ol>
   </Section>
+
+  <Projects tone="base" />
+
+  <Section id="estudio" tone="base">
+    <h2 class="max-w-2xl text-heading leading-tight font-medium tracking-tight text-balance md:text-title">
+      {home.who}
+    </h2>
+    <p class="mt-6 max-w-2xl text-lg text-pretty text-ink-secondary">
+      {home.studioBody}
+    </p>
+    <ul class="reveal mt-12 grid gap-8 md:grid-cols-3">
+      {
+        principles.map((principle) => (
+          <li data-reveal-item class="border-t border-border pt-6">
+            <h3 class="text-lg font-semibold tracking-tight text-ink">
+              {principle.title}
+            </h3>
+            <p class="mt-2 text-base text-pretty text-ink-secondary">
+              {principle.description}
+            </p>
+          </li>
+        ))
+      }
+    </ul>
+    <Founder />
+  </Section>
+
+  <Testimonials tone="raised" />
 
   <Section id="preguntas" tone="raised">
     <h2 class="max-w-2xl text-heading leading-tight font-medium tracking-tight text-balance md:text-title">

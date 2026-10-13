@@ -1,7 +1,7 @@
 ---
 import { Font } from "astro:assets";
 import Lockup from "../components/Lockup.astro";
-import { brand, home, links, nav } from "../content/home";
+import { brand, company, home, links, nav } from "../content/home";
 import "../styles/global.css";
 
 interface Props {
@@ -17,6 +17,8 @@ const {
 const year = new Date().getFullYear();
 const canonical = new URL(Astro.url.pathname, Astro.site ?? "https://davionsoftware.com");
 const ogImage = new URL("/og.png", canonical).href;
+const footerLink =
+  "link-quiet inline-flex min-h-11 items-center text-ink-secondary underline-offset-4 transition-[color] duration-150 ease-out-quart hover:underline";
 const isHome = Astro.url.pathname === "/";
 ---
 
@@ -53,16 +55,25 @@ const isHome = Astro.url.pathname === "/";
     >
       Saltar al contenido
     </a>
-    <header
-      class="sticky top-0 z-20 border-b border-border bg-surface-0/90 backdrop-blur-md"
-    >
+    <header class="sticky top-0 z-20 border-b border-border bg-surface-0/90 backdrop-blur-md">
       <div
-        class="mx-auto flex w-full max-w-6xl flex-col gap-4 px-6 py-4 sm:h-16 sm:flex-row sm:items-center sm:justify-between sm:gap-0 sm:px-8 sm:py-0"
+        class="mx-auto flex w-full max-w-6xl flex-wrap items-center justify-between px-6 sm:px-8 md:h-16 md:flex-nowrap"
       >
         <Lockup />
+        <button
+          type="button"
+          data-menu-button
+          aria-expanded="false"
+          aria-controls="menu-principal"
+          class="menu-button btn-secondary h-11 items-center rounded-lg border border-border-strong px-4 text-sm font-semibold text-ink"
+        >
+          Menú
+        </button>
         <nav
+          id="menu-principal"
+          data-menu
           aria-label="Principal"
-          class="flex flex-wrap items-center gap-x-4 gap-y-2 text-sm font-medium sm:gap-x-6"
+          class="site-nav flex w-full flex-wrap items-center gap-x-6 text-sm font-medium md:w-auto"
         >
           {
             nav.map((item) => (
@@ -83,52 +94,43 @@ const isHome = Astro.url.pathname === "/";
     </main>
     <footer class="border-t border-border">
       <div class="mx-auto w-full max-w-6xl px-6 py-12 sm:px-8">
-        <div
-          class="flex flex-col gap-8 sm:flex-row sm:items-start sm:justify-between"
-        >
+        <div class="flex flex-col gap-8 md:flex-row md:items-start md:justify-between">
           <div class="flex max-w-sm flex-col gap-4">
             <Lockup />
-            <p class="text-sm leading-relaxed text-ink-secondary">
-              {home.footerStudio}
-            </p>
+            <p class="text-sm text-ink-secondary">{home.footerStudio}</p>
+            <p class="text-sm text-ink-tertiary">{company.country}</p>
           </div>
-          <nav
-            aria-label="Pie de página"
-            class="flex flex-col text-sm sm:items-end"
-          >
-            {
-              nav.map((item) => (
-                <a
-                  href={isHome ? item.href : `/${item.href}`}
-                  class="link-quiet inline-flex min-h-11 items-center text-ink-secondary transition-[color] duration-150 ease-out-quart"
-                >
-                  {item.label}
+          <nav aria-label="Pie de página" class="grid grid-cols-2 gap-8">
+            <ul class="flex flex-col text-sm">
+              <li>
+                <a href={links.email} class={footerLink}>{links.emailAddress}</a>
+              </li>
+              <li>
+                <a href={links.whatsapp} rel="noopener noreferrer" target="_blank" class={footerLink}>
+                  WhatsApp
                 </a>
-              ))
-            }
-            <a
-              href={links.github}
-              rel="me noopener"
-              class="link-quiet inline-flex min-h-11 items-center text-ink-secondary underline-offset-4 transition-[color] duration-150 ease-out-quart hover:underline"
-            >
-              GitHub
-            </a>
-            <a
-              href="/privacidad"
-              class="link-quiet inline-flex min-h-11 items-center text-ink-secondary underline-offset-4 transition-[color] duration-150 ease-out-quart hover:underline"
-            >
-              Privacidad
-            </a>
-            <a
-              href="/terminos"
-              class="link-quiet inline-flex min-h-11 items-center text-ink-secondary underline-offset-4 transition-[color] duration-150 ease-out-quart hover:underline"
-            >
-              Términos
-            </a>
+              </li>
+              <li>
+                <a href={links.github} rel="me noopener" class={footerLink}>GitHub</a>
+              </li>
+              {
+                company.linkedin && (
+                  <li>
+                    <a href={company.linkedin} rel="me noopener" class={footerLink}>
+                      LinkedIn
+                    </a>
+                  </li>
+                )
+              }
+            </ul>
+            <ul class="flex flex-col text-sm">
+              <li><a href="/privacidad" class={footerLink}>Privacidad</a></li>
+              <li><a href="/terminos" class={footerLink}>Términos</a></li>
+            </ul>
           </nav>
         </div>
         <p class="mt-8 text-sm text-ink-tertiary">
-          © {year} Davion Software
+          © {year} Davion Software{company.ruc && ` · RUC ${company.ruc}`}
         </p>
       </div>
     </footer>
@@ -149,6 +151,29 @@ const isHome = Astro.url.pathname === "/";
           { rootMargin: "0px 0px -10% 0px", threshold: 0 },
         );
         revealables.forEach((element) => revealObserver.observe(element));
+      }
+
+      const menuButton = document.querySelector<HTMLButtonElement>("[data-menu-button]");
+      const menu = document.querySelector<HTMLElement>("[data-menu]");
+      if (menuButton && menu) {
+        const setOpen = (open: boolean, restoreFocus = false) => {
+          menu.toggleAttribute("data-open", open);
+          menuButton.setAttribute("aria-expanded", String(open));
+          if (open) menu.querySelector<HTMLElement>("a")?.focus({ preventScroll: true });
+          else if (restoreFocus) menuButton.focus();
+        };
+        const isOpen = () => menu.hasAttribute("data-open");
+        menuButton.addEventListener("click", () => setOpen(!isOpen()));
+        menu.addEventListener("click", (event) => {
+          if ((event.target as Element).closest("a")) setOpen(false);
+        });
+        document.addEventListener("keydown", (event) => {
+          if (event.key === "Escape" && isOpen()) setOpen(false, true);
+        });
+        document.addEventListener("click", (event) => {
+          const target = event.target as Node;
+          if (isOpen() && !menu.contains(target) && !menuButton.contains(target)) setOpen(false);
+        });
       }
 
       const navLinks = Array.from(

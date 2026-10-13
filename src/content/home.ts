@@ -137,6 +137,10 @@ export const capabilities = [
 
 export type CapabilityIcon = (typeof capabilities)[number]["icon"];
 
+export const projectsHeading = "Proyectos";
+
+export const testimonialsHeading = "Testimonios";
+
 export const faqHeading = "Preguntas frecuentes";
 
 export const faq = [
@@ -203,9 +207,37 @@ export const links = {
   )}`,
 } as const;
 
-export const nav = [
-  { href: "#estudio", label: "Estudio" },
+export interface Project {
+  name: string;
+  summary: string;
+  href: string | null;
+}
+
+export interface Testimonial {
+  quote: string;
+  author: string;
+  role: string;
+}
+
+export interface NavItem {
+  href: string;
+  label: string;
+}
+
+export const projects: Project[] = [];
+
+export const testimonials: Testimonial[] = [];
+
+export const company = {
+  country: "Perú",
+  linkedin: null as string | null,
+  ruc: null as string | null,
+} as const;
+
+export const nav: NavItem[] = [
   { href: "#capacidades", label: "Capacidades" },
-  { href: "#preguntas", label: "Preguntas" },
-  { href: "#contacto", label: "Empecemos" },
-] as const;
+  { href: "#como-trabajamos", label: "Cómo trabajamos" },
+  ...(projects.length > 0 ? [{ href: "#proyectos", label: "Proyectos" }] : []),
+  { href: "#estudio", label: "Estudio" },
+  { href: "#contacto", label: "Contacto" },
+];
