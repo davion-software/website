@@ -8,15 +8,12 @@ export const home = {
   heroLead: "Software para el trabajo",
   heroTail: "que hoy se hace a mano.",
   oneLiner:
-    "Diseñamos y construimos productos web, sistemas internos y automatizaciones para empresas en Perú.",
+    "Reemplazamos hojas de cálculo, chats dispersos y tareas repetidas por sistemas a medida para pymes en Perú.",
   heroProof:
     "El primer paso es un WhatsApp. Alcance y costo quedan por escrito antes de código.",
   who: "Estudio de software independiente en Perú.",
-  audienceLead: "Para startups, pymes y emprendedores locales.",
-  audienceDetail:
-    "Construimos landings y agentes de ventas en WhatsApp, Instagram y Facebook.",
-  audienceBridge:
-    "Si su negocio depende de hojas de cálculo, chats dispersos o procesos manuales, ese es nuestro punto de partida.",
+  studioBody:
+    "Trabajamos con pymes y empresas cuya operación vive en hojas de cálculo, grupos de WhatsApp y tareas que alguien repite cada día. Primero entendemos cómo trabaja su equipo hoy; después construimos, por etapas, el sistema que reemplaza esa parte manual.",
   availability: "Aceptando nuevos proyectos",
   primaryCta: "Escribir por WhatsApp",
   secondaryCta: "Escribir un correo",
@@ -29,28 +26,6 @@ export const tagline = {
     "Un sistema de uso diario.",
   ],
 } as const;
-
-export const benefitsHeading = "Qué cambia en su operación";
-
-export const benefits = [
-  {
-    title: "Menos trabajo repetido a mano",
-    description:
-      "Reemplazamos el copiar y pegar entre planillas, chats y herramientas que no se hablan.",
-  },
-  {
-    title: "Ventas que no dependen de una sola persona",
-    description:
-      "Landings y agentes que atienden en WhatsApp, Instagram y Facebook cuando su equipo no puede.",
-  },
-  {
-    title: "Un sistema que su equipo llega a usar",
-    description:
-      "Entregas pequeñas y verificables, con trato directo con quien construye.",
-  },
-] as const;
-
-export const processHeading = "Cómo trabajamos";
 
 export const principles = [
   {
@@ -101,7 +76,7 @@ export const faq = [
   {
     question: "¿Cómo empezamos?",
     answer:
-      "Con un WhatsApp o un correo breve. Cuéntenos qué le quita tiempo a su equipo y cómo opera hoy. No pedimos un brief largo para conversar.",
+      "Con un diagnóstico gratuito de 30 minutos por videollamada. Cuéntenos qué le quita tiempo a su equipo y cómo opera hoy, y le decimos qué conviene automatizar primero. No pedimos un brief largo para conversar.",
   },
   {
     question: "¿Necesito un equipo técnico o un documento de requisitos?",
@@ -111,7 +86,7 @@ export const faq = [
   {
     question: "¿Qué construyen?",
     answer:
-      "Productos digitales, sistemas internos, automatización e IA, y modernización de software que ya existe. El alcance de cada proyecto queda por escrito antes de código.",
+      "Productos digitales, sistemas internos, automatización e IA, modernización de software que ya existe, y landings con agentes de mensajería para WhatsApp, Instagram y Facebook. El alcance de cada proyecto queda por escrito antes de código.",
   },
   {
     question: "¿Cuánto tarda la primera entrega?",

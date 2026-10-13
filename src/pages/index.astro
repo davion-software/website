@@ -6,8 +6,6 @@ import FaqList from "../components/FaqList.astro";
 import Layout from "../layouts/Layout.astro";
 import TaglineReveal from "../components/TaglineReveal.astro";
 import {
-  benefits,
-  benefitsHeading,
   capabilities,
   capabilitiesHeading,
   coda,
@@ -16,7 +14,6 @@ import {
   home,
   links,
   principles,
-  processHeading,
   tagline,
 } from "../content/home";
 
@@ -116,62 +113,22 @@ const orgSchema = {
     <p
       class="mt-8 max-w-2xl text-lg leading-relaxed text-pretty text-ink-secondary"
     >
-      {home.audienceLead}{" "}{home.audienceDetail}
+      {home.studioBody}
     </p>
-    <p
-      class="mt-4 max-w-2xl text-base leading-relaxed text-pretty text-ink-secondary"
-    >
-      {home.audienceBridge}
-    </p>
-  </section>
-
-  <section class="mx-auto w-full max-w-6xl px-6 py-24 sm:px-8">
-    <h2 class="max-w-2xl text-3xl leading-none font-medium tracking-tight text-balance sm:text-4xl">
-      {benefitsHeading}
-    </h2>
-    <ul class="reveal mt-16 grid gap-16 md:grid-cols-2">
+    <ul class="reveal mt-12 grid gap-8 md:grid-cols-3">
       {
-        benefits.map((benefit, index) => (
-          <li
-            data-reveal-item
-            class:list={[index === 0 ? "max-w-2xl md:col-span-2" : "max-w-xl"]}
-          >
-            <h3 class="text-xl font-medium tracking-tight text-soft-white sm:text-2xl">
-              {benefit.title}
+        principles.map((principle) => (
+          <li data-reveal-item class="border-t border-line pt-6">
+            <h3 class="text-lg font-medium tracking-tight text-soft-white">
+              {principle.title}
             </h3>
-            <p class="mt-4 text-base leading-relaxed text-pretty text-ink-secondary">
-              {benefit.description}
+            <p class="mt-2 text-base leading-relaxed text-pretty text-ink-secondary">
+              {principle.description}
             </p>
           </li>
         ))
       }
     </ul>
-  </section>
-
-  <section
-    id="proceso"
-    class="mx-auto w-full max-w-6xl scroll-mt-24 px-6 py-24 sm:px-8"
-  >
-    <h2 class="max-w-2xl text-3xl leading-none font-medium tracking-tight text-balance sm:text-4xl">
-      {processHeading}
-    </h2>
-    <ol class="reveal mt-16 flex flex-col gap-16">
-      {
-        principles.map((step) => (
-          <li
-            data-reveal-item
-            class="grid gap-4 lg:grid-cols-12 lg:gap-16"
-          >
-            <h3 class="text-xl font-medium tracking-tight text-soft-white sm:text-2xl lg:col-span-5">
-              {step.title}
-            </h3>
-            <p class="max-w-2xl text-base leading-relaxed text-pretty text-ink-secondary lg:col-span-7">
-              {step.description}
-            </p>
-          </li>
-        ))
-      }
-    </ol>
   </section>
 
   <section
