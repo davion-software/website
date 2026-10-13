@@ -10,13 +10,14 @@ export const home = {
   oneLiner:
     "Reemplazamos hojas de cálculo, chats dispersos y tareas repetidas por sistemas a medida para pymes en Perú.",
   heroProof:
-    "El primer paso es un WhatsApp. Alcance y costo quedan por escrito antes de código.",
+    "Diagnóstico gratuito de 30 minutos por videollamada: le decimos qué conviene automatizar primero.",
   who: "Estudio de software independiente en Perú.",
   studioBody:
     "Trabajamos con pymes y empresas cuya operación vive en hojas de cálculo, grupos de WhatsApp y tareas que alguien repite cada día. Primero entendemos cómo trabaja su equipo hoy; después construimos, por etapas, el sistema que reemplaza esa parte manual.",
   availability: "Aceptando nuevos proyectos",
-  primaryCta: "Escribir por WhatsApp",
-  secondaryCta: "Escribir un correo",
+  primaryCta: "Agendar diagnóstico gratuito",
+  capabilitiesCta: "Ver capacidades",
+  whatsappCta: "Escribir por WhatsApp",
   footerStudio: "Estudio de software independiente en Perú.",
 } as const;
 
@@ -126,6 +127,10 @@ export const links = {
   whatsapp: `https://wa.me/51996004562?text=${encodeURIComponent(
     "Hola, quiero conversar sobre un proyecto.",
   )}`,
+  whatsappDiagnostic: `https://wa.me/51996004562?text=${encodeURIComponent(
+    "Hola, quiero agendar el diagnóstico gratuito de 30 minutos por videollamada.",
+  )}`,
+  calendar: null as string | null,
   email: `mailto:hola@davionsoftware.com?subject=${encodeURIComponent(
     "Conversar sobre un proyecto",
   )}`,
