@@ -123,7 +123,12 @@ const jsonLd = {
     </div>
   </Section>
 
-  <TaglineReveal lines={tagline.lines} />
+  <TaglineReveal
+    lines={tagline.lines}
+    support={tagline.support}
+    before={tagline.before}
+    after={tagline.after}
+  />
 
   <Section id="capacidades" tone="base">
     <h2 class="text-heading leading-tight font-medium tracking-tight md:text-title">

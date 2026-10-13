@@ -221,11 +221,11 @@ const isHome = Astro.url.pathname === "/";
         sections.forEach(({ section }) => spy.observe(section));
       }
 
-      const taglineHeading = document.getElementById("tagline-heading");
-      if (taglineHeading) {
+      const taglineSection = document.getElementById("tagline");
+      if (taglineSection) {
         const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
         if (reduceMotion || !("IntersectionObserver" in window)) {
-          taglineHeading.setAttribute("data-visible", "");
+          taglineSection.setAttribute("data-visible", "");
         } else {
           const taglineObserver = new IntersectionObserver(
             (entries) => {
@@ -237,7 +237,7 @@ const isHome = Astro.url.pathname === "/";
             },
             { root: null, rootMargin: "0px 0px -30% 0px", threshold: 0 },
           );
-          taglineObserver.observe(taglineHeading);
+          taglineObserver.observe(taglineSection);
         }
       }
 

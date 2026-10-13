@@ -26,7 +26,29 @@ export const tagline = {
     "Menos hojas de cálculo y chats.",
     "Un sistema de uso diario.",
   ],
+  support:
+    "La información que hoy vive repartida en archivos, grupos y la memoria de su equipo pasa a un solo lugar que todos usan cada día.",
+  before: {
+    label: "Hoy",
+    items: [
+      { icon: "sheet", text: "pedidos_final_v3 (copia).xlsx" },
+      { icon: "chat", text: "Grupo de WhatsApp «Pedidos», 214 sin leer" },
+      { icon: "copy", text: "Los mismos datos copiados en tres lugares" },
+      { icon: "clock", text: "El reporte del lunes, armado a mano" },
+    ],
+  },
+  after: {
+    label: "Con su sistema",
+    items: [
+      "Un solo registro, siempre actualizado",
+      "Avisos automáticos a la persona correcta",
+      "Cada dato se ingresa una sola vez",
+      "Reportes listos cuando los necesita",
+    ],
+  },
 } as const;
+
+export type TaglineIcon = (typeof tagline.before.items)[number]["icon"];
 
 export const principles = [
   {

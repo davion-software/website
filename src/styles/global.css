@@ -173,6 +173,44 @@ html.js .tagline[data-visible] .tagline-after {
   transform: translateY(0);
 }
 
+.tagline-chore-copy {
+  background: linear-gradient(var(--color-ink-tertiary), var(--color-ink-tertiary)) 0 55% / 100% 1px
+    no-repeat;
+  box-decoration-break: clone;
+  -webkit-box-decoration-break: clone;
+}
+
+html.js .tagline-chore-copy {
+  background-size: 0 1px;
+  transition: background-size 0.35s var(--ease-out-quart) calc(0.5s + var(--i) * 0.12s);
+}
+
+html.js .tagline[data-visible] .tagline-chore-copy {
+  background-size: 100% 1px;
+}
+
+html.js .tagline-arrow {
+  opacity: 0;
+  transition: opacity 0.3s var(--ease-out-quart) 0.9s;
+}
+
+html.js .tagline[data-visible] .tagline-arrow {
+  opacity: 1;
+}
+
+html.js .tagline-gain {
+  opacity: 0;
+  transform: translateY(8px);
+  transition:
+    opacity 0.35s var(--ease-out-quart) calc(1s + var(--i) * 0.08s),
+    transform 0.35s var(--ease-out-quart) calc(1s + var(--i) * 0.08s);
+}
+
+html.js .tagline[data-visible] .tagline-gain {
+  opacity: 1;
+  transform: none;
+}
+
 .menu-button {
   display: none;
 }
@@ -303,6 +341,18 @@ html.js .js-only {
 
   html.js .tagline-after {
     color: var(--color-ink);
+    transform: none;
+    transition: none;
+  }
+
+  html.js .tagline-chore-copy {
+    background-size: 100% 1px;
+    transition: none;
+  }
+
+  html.js .tagline-arrow,
+  html.js .tagline-gain {
+    opacity: 1;
     transform: none;
     transition: none;
   }
