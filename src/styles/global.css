@@ -58,78 +58,18 @@
   }
 }
 
-/* Content stays visible if motion never runs. */
-@keyframes rise-in {
-  from {
-    opacity: 0;
-    transform: translateY(4rem);
-    filter: blur(12px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-    filter: blur(0);
-  }
-}
-
-@keyframes mark-in {
-  from {
-    opacity: 0;
-    transform: scale(0.97);
-  }
-  to {
-    opacity: 1;
-    transform: scale(1);
-  }
-}
-
 @media (prefers-reduced-motion: no-preference) {
-  .rise {
-    animation: rise-in 0.8s var(--ease-fluid) both;
-  }
-
-  .rise-2 {
-    animation-delay: 100ms;
-  }
-
-  .rise-3 {
-    animation-delay: 150ms;
-  }
-
-  .rise-4 {
-    animation-delay: 200ms;
-  }
-
-  .mark-enter {
-    animation: mark-in 0.8s var(--ease-fluid) 200ms both;
-  }
-
   html.js .reveal [data-reveal-item] {
     opacity: 0;
-    transform: translateY(4rem);
-    filter: blur(8px);
+    transform: translateY(10px);
     transition:
-      opacity 0.8s var(--ease-fluid),
-      transform 0.8s var(--ease-fluid),
-      filter 0.8s var(--ease-fluid);
+      opacity 0.35s var(--ease-out-quart),
+      transform 0.35s var(--ease-out-quart);
   }
 
   html.js .reveal[data-visible] [data-reveal-item] {
     opacity: 1;
-    transform: translateY(0);
-    filter: blur(0);
-  }
-
-  html.js .reveal[data-visible] [data-reveal-item]:nth-child(2) {
-    transition-delay: 100ms;
-  }
-
-  html.js .reveal[data-visible] [data-reveal-item]:nth-child(3) {
-    transition-delay: 150ms;
-  }
-
-  html.js .reveal[data-visible] [data-reveal-item]:nth-child(4) {
-    transition-delay: 200ms;
+    transform: none;
   }
 }
 
@@ -160,7 +100,7 @@
 
 html.js .tagline-strike-copy {
   clip-path: inset(0 100% 0 0);
-  transition: clip-path 0.8s var(--ease-fluid);
+  transition: clip-path 0.4s var(--ease-out-quart);
 }
 
 html.js .tagline[data-visible] .tagline-strike-copy {
@@ -169,10 +109,10 @@ html.js .tagline[data-visible] .tagline-strike-copy {
 
 html.js .tagline-after {
   color: rgb(254 254 254 / 0.3);
-  transform: translateY(1rem);
+  transform: translateY(10px);
   transition:
-    color 0.7s var(--ease-fluid) 0.35s,
-    transform 0.7s var(--ease-fluid) 0.35s;
+    color 0.4s var(--ease-out-quart) 0.3s,
+    transform 0.4s var(--ease-out-quart) 0.3s;
 }
 
 html.js .tagline[data-visible] .tagline-after {

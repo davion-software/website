@@ -56,27 +56,27 @@ const orgSchema = {
       class="mx-auto grid w-full max-w-6xl items-center px-6 pt-16 pb-20 sm:px-8 lg:grid-cols-12 lg:gap-12 lg:py-16"
     >
       <div class="flex flex-col lg:col-span-8">
-        <p class="rise flex items-center gap-2 text-sm text-ink-tertiary">
+        <p class="flex items-center gap-2 text-sm text-ink-tertiary">
           <span
             aria-hidden="true"
             class="inline-block size-2 rounded-full bg-gold"></span>
           {home.availability}
         </p>
         <h1
-          class="rise rise-2 mt-6 flex max-w-2xl flex-col gap-4 text-3xl leading-none font-medium tracking-tight sm:text-5xl lg:max-w-none lg:text-6xl"
+          class="mt-6 flex max-w-2xl flex-col gap-4 text-3xl leading-none font-medium tracking-tight sm:text-5xl lg:max-w-none lg:text-6xl"
         >
           <span class="lg:whitespace-nowrap">{home.heroLead}</span>
           <span class="text-ink-secondary lg:whitespace-nowrap">{home.heroTail}</span>
         </h1>
         <p
-          class="rise rise-3 mt-8 max-w-2xl text-base leading-relaxed text-pretty text-ink-secondary sm:text-xl"
+          class="mt-8 max-w-2xl text-base leading-relaxed text-pretty text-ink-secondary sm:text-xl"
         >
           {home.oneLiner}
         </p>
-        <p class="rise rise-4 mt-4 max-w-2xl text-sm leading-relaxed text-pretty text-ink-tertiary">
+        <p class="mt-4 max-w-2xl text-sm leading-relaxed text-pretty text-ink-tertiary">
           {home.heroProof}
         </p>
-        <div class="rise rise-4 mt-10">
+        <div class="mt-10">
           <Button
             variant="primary"
             href={links.whatsapp}
@@ -87,7 +87,7 @@ const orgSchema = {
           </Button>
         </div>
       </div>
-      <div class="mark-enter mt-16 hidden justify-end lg:col-span-4 lg:mt-0 lg:flex">
+      <div class="mt-16 hidden justify-end lg:col-span-4 lg:mt-0 lg:flex">
         <Image
           src={mark}
           alt=""

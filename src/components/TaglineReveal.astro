@@ -43,7 +43,7 @@ const after = lines[1] ?? "";
   if (heading) {
     const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
-    if (reduce) {
+    if (reduce || !("IntersectionObserver" in window)) {
       heading.setAttribute("data-visible", "");
     } else {
       const observer = new IntersectionObserver(
