@@ -120,6 +120,14 @@ html.js .tagline[data-visible] .tagline-after {
   transform: translateY(0);
 }
 
+.js-only {
+  display: none;
+}
+
+html.js .js-only {
+  display: inline-flex;
+}
+
 .faq-summary {
   cursor: pointer;
   display: flex;

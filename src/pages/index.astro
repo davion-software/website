@@ -226,36 +226,78 @@ const orgSchema = {
   <section id="contacto" class="scroll-mt-24 bg-soft-white text-charcoal">
     <div class="mx-auto w-full max-w-6xl px-6 py-24 sm:px-8">
       <div class="max-w-2xl">
-        <h2
-          class="flex max-w-2xl flex-col gap-4 text-3xl leading-none font-medium tracking-tight sm:text-4xl"
-        >
-          <span>{coda.headingLead}</span>
-          <span class="text-ink-on-light-secondary">{coda.headingTail}</span>
+        <h2 class="max-w-2xl text-3xl leading-none font-medium tracking-tight text-balance sm:text-4xl">
+          {coda.heading}
         </h2>
         <p
           class="mt-8 max-w-2xl text-lg leading-relaxed text-pretty text-ink-on-light-secondary"
         >
           {coda.support}
         </p>
-        <p
-          class="mt-4 max-w-2xl text-base leading-relaxed text-pretty text-ink-on-light-secondary"
-        >
-          {coda.riskReversal}
-        </p>
         <div class="mt-10 flex flex-wrap gap-3">
           <Button
             variant="primary"
-            href={links.whatsapp}
+            href={links.whatsappDiagnostic}
             rel="noopener noreferrer"
             target="_blank"
           >
-            {coda.action}
+            {home.whatsappCta}
           </Button>
-          <Button variant="secondary" surface="light" href={links.email}>
-            {coda.emailAction}
-          </Button>
+          {
+            links.calendar && (
+              <Button
+                variant="secondary"
+                surface="light"
+                href={links.calendar}
+                rel="noopener noreferrer"
+                target="_blank"
+              >
+                {coda.calendarAction}
+              </Button>
+            )
+          }
         </div>
+        <p class="mt-8 flex flex-wrap items-center gap-x-3 gap-y-2 text-base text-ink-on-light-secondary">
+          <span>{coda.emailLabel}</span>
+          <a
+            href={links.email}
+            class="font-medium text-charcoal underline underline-offset-4"
+          >
+            {links.emailAddress}
+          </a>
+          <button
+            type="button"
+            data-copy-email={links.emailAddress}
+            data-copied={coda.copied}
+            data-failed={coda.copyFailed}
+            class="js-only btn-secondary-on-light h-11 items-center rounded-lg border border-line-on-light px-4 text-sm font-semibold text-charcoal"
+          >
+            {coda.copyAction}
+          </button>
+        </p>
+        <p aria-live="polite" data-copy-status class="mt-2 min-h-6 text-sm text-charcoal"></p>
       </div>
     </div>
   </section>
+
+  <script>
+    const copyButton = document.querySelector<HTMLButtonElement>("[data-copy-email]");
+    const copyStatus = document.querySelector<HTMLElement>("[data-copy-status]");
+    if (copyButton && copyStatus) {
+      let timer: number | undefined;
+      copyButton.addEventListener("click", async () => {
+        let message = copyButton.dataset.copied ?? "";
+        try {
+          await navigator.clipboard.writeText(copyButton.dataset.copyEmail ?? "");
+        } catch {
+          message = copyButton.dataset.failed ?? "";
+        }
+        copyStatus.textContent = message;
+        window.clearTimeout(timer);
+        timer = window.setTimeout(() => {
+          copyStatus.textContent = "";
+        }, 4000);
+      });
+    }
+  </script>
 </Layout>

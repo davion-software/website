@@ -163,14 +163,14 @@ export const faq = [
 ] as const;
 
 export const coda = {
-  headingLead: "Cuéntenos qué le quita tiempo",
-  headingTail: "a su equipo.",
+  heading: "Diagnóstico gratuito de 30 minutos",
   support:
-    "Aceptamos nuevos proyectos. El primer paso es un WhatsApp o un correo breve sobre su operación y lo que necesita resolver.",
-  riskReversal:
-    "No pedimos un contrato para conversar. Alcance, plazos y costos quedan documentados antes de escribir código.",
-  action: "Escribir por WhatsApp",
-  emailAction: "Escribir un correo",
+    "Por videollamada. Cuéntenos qué le quita tiempo a su equipo y le decimos qué conviene automatizar primero. Sin contrato para conversar.",
+  calendarAction: "Agendar en el calendario",
+  emailLabel: "O escríbanos a",
+  copyAction: "Copiar correo",
+  copied: "Correo copiado",
+  copyFailed: "No se pudo copiar el correo",
 } as const;
 
 export const links = {
@@ -182,6 +182,7 @@ export const links = {
     "Hola, quiero agendar el diagnóstico gratuito de 30 minutos por videollamada.",
   )}`,
   calendar: null as string | null,
+  emailAddress: "hola@davionsoftware.com",
   email: `mailto:hola@davionsoftware.com?subject=${encodeURIComponent(
     "Conversar sobre un proyecto",
   )}`,
