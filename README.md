@@ -56,13 +56,13 @@ npm run test:copy
 
 ## Social image
 
-`public/og.png` (1200×630) is generated from `scripts/og/og.html`, which uses `src/assets/mark.svg` and the bundled Inter file in `scripts/og/fonts`. Regenerate it with Chrome after editing the page:
+`public/og.png` (2400×1260, a 1200×630 layout exported at 2× for sharp previews on high-density screens) is generated from `scripts/og/og.html`, which uses `src/assets/mark.svg` and the bundled Inter file in `scripts/og/fonts`. Regenerate it with Chrome after editing the page:
 
 ```bash
-"/Applications/Google Chrome.app/Contents/MacOS/Google Chrome" --headless=new --hide-scrollbars \
-  --force-device-scale-factor=1 --window-size=1200,630 --virtual-time-budget=3000 \
-  --screenshot="$PWD/public/og.png" "file://$PWD/scripts/og/og.html"
+npm run og
 ```
+
+The script uses Google Chrome on macOS by default. Set `CHROME` to another Chrome or Chromium binary if needed.
 
 Keep the file under 150 KB and check that no text is cut off.
 

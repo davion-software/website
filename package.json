@@ -13,6 +13,7 @@
     "check": "astro check",
     "astro": "astro",
     "test:copy": "node scripts/assert-home-copy.mjs",
+    "og": "\"${CHROME:-/Applications/Google Chrome.app/Contents/MacOS/Google Chrome}\" --headless=new --hide-scrollbars --force-device-scale-factor=2 --window-size=1200,630 --virtual-time-budget=3000 --screenshot=\"$PWD/public/og.png\" \"file://$PWD/scripts/og/og.html\"",
     "preview:cloudflare": "astro build && wrangler dev"
   },
   "dependencies": {
