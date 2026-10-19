@@ -22,33 +22,16 @@ export const home = {
 } as const;
 
 export const tagline = {
-  lines: [
-    "Menos hojas de cálculo y chats.",
-    "Un sistema de uso diario.",
+  heading: "Un sistema de uso diario.",
+  support: "Lo que hoy se pregunta en el chat o se busca en el Excel, el sistema ya lo tiene.",
+  columns: { heard: "Lo que se escucha hoy", fix: "Con su sistema" },
+  rows: [
+    { heard: "¿Cuál es la última versión del Excel?", fix: "Un solo registro, siempre actualizado" },
+    { heard: "Está en el grupo, sube un poco.", fix: "Avisos automáticos a la persona correcta" },
+    { heard: "Lo paso al Excel y a facturación.", fix: "Cada dato se ingresa una sola vez" },
+    { heard: "Dame hasta el lunes para el reporte.", fix: "Reportes listos cuando los necesita" },
   ],
-  support:
-    "La información que hoy vive repartida en archivos, grupos y la memoria de su equipo pasa a un solo lugar que todos usan cada día.",
-  before: {
-    label: "Hoy",
-    items: [
-      { icon: "sheet", text: "pedidos_final_v3 (copia).xlsx" },
-      { icon: "chat", text: "Grupo de WhatsApp «Pedidos», 214 sin leer" },
-      { icon: "copy", text: "Los mismos datos copiados en tres lugares" },
-      { icon: "clock", text: "El reporte del lunes, armado a mano" },
-    ],
-  },
-  after: {
-    label: "Con su sistema",
-    items: [
-      "Un solo registro, siempre actualizado",
-      "Avisos automáticos a la persona correcta",
-      "Cada dato se ingresa una sola vez",
-      "Reportes listos cuando los necesita",
-    ],
-  },
 } as const;
-
-export type TaglineIcon = (typeof tagline.before.items)[number]["icon"];
 
 export const principles = [
   {

@@ -136,82 +136,72 @@
   }
 }
 
-.tagline-before {
-  position: relative;
-  display: block;
-  width: fit-content;
-  max-width: 100%;
+.tagline-heard {
   color: var(--color-ink-tertiary);
 }
 
-.tagline-before-copy {
-  background: linear-gradient(var(--color-accent), var(--color-accent)) 0 63% / 100% 2px no-repeat;
-  box-decoration-break: clone;
-  -webkit-box-decoration-break: clone;
-}
+/*
+ * Tagline: each row draws its rule, the heard phrase appears, then the fix
+ * slides in while the phrase dims to its resting color. Rows cascade by --i.
+ */
+@media (prefers-reduced-motion: no-preference) {
+  html.js .tagline-intro {
+    opacity: 0;
+    transform: translateY(10px);
+    transition:
+      opacity 0.5s var(--ease-out-quart),
+      transform 0.5s var(--ease-out-quart);
+  }
 
-.tagline-after {
-  color: var(--color-ink);
-}
+  html.js .tagline-rule {
+    transform: scaleX(0);
+    transform-origin: left center;
+    transition: transform 0.7s var(--ease-out-quart) calc(0.2s + var(--i) * 0.15s);
+  }
 
-html.js .tagline-before-copy {
-  background-size: 0 2px;
-  transition: background-size 0.4s var(--ease-out-quart);
-}
+  html.js .tagline-heard {
+    color: var(--color-ink);
+    opacity: 0;
+    transform: translateY(6px);
+    transition:
+      opacity 0.4s var(--ease-out-quart) calc(0.3s + var(--i) * 0.15s),
+      transform 0.4s var(--ease-out-quart) calc(0.3s + var(--i) * 0.15s),
+      color 0.5s var(--ease-out-quart) calc(1s + var(--i) * 0.15s);
+  }
 
-html.js .tagline[data-visible] .tagline-before-copy {
-  background-size: 100% 2px;
-}
+  html.js .tagline-fix {
+    opacity: 0;
+    transform: translateX(-12px);
+    transition:
+      opacity 0.4s var(--ease-out-quart) calc(0.8s + var(--i) * 0.15s),
+      transform 0.5s var(--ease-out-quart) calc(0.8s + var(--i) * 0.15s);
+  }
 
-html.js .tagline-after {
-  color: var(--color-ink-tertiary);
-  transform: translateY(10px);
-  transition:
-    color 0.4s var(--ease-out-quart) 0.3s,
-    transform 0.4s var(--ease-out-quart) 0.3s;
-}
+  html.js .tagline[data-visible] .tagline-intro,
+  html.js .tagline[data-visible] .tagline-heard,
+  html.js .tagline[data-visible] .tagline-fix {
+    opacity: 1;
+    transform: none;
+  }
 
-html.js .tagline[data-visible] .tagline-after {
-  color: var(--color-ink);
-  transform: translateY(0);
-}
+  html.js .tagline[data-visible] .tagline-heard {
+    color: var(--color-ink-tertiary);
+  }
 
-.tagline-chore-copy {
-  background: linear-gradient(var(--color-ink-tertiary), var(--color-ink-tertiary)) 0 55% / 100% 1px
-    no-repeat;
-  box-decoration-break: clone;
-  -webkit-box-decoration-break: clone;
-}
+  html.js .tagline[data-visible] .tagline-rule {
+    transform: none;
+  }
 
-html.js .tagline-chore-copy {
-  background-size: 0 1px;
-  transition: background-size 0.35s var(--ease-out-quart) calc(0.5s + var(--i) * 0.12s);
-}
+  .tagline-arrow {
+    display: inline-block;
+    transition: transform 0.3s var(--ease-out-quart);
+  }
 
-html.js .tagline[data-visible] .tagline-chore-copy {
-  background-size: 100% 1px;
-}
-
-html.js .tagline-arrow {
-  opacity: 0;
-  transition: opacity 0.3s var(--ease-out-quart) 0.9s;
-}
-
-html.js .tagline[data-visible] .tagline-arrow {
-  opacity: 1;
-}
-
-html.js .tagline-gain {
-  opacity: 0;
-  transform: translateY(8px);
-  transition:
-    opacity 0.35s var(--ease-out-quart) calc(1s + var(--i) * 0.08s),
-    transform 0.35s var(--ease-out-quart) calc(1s + var(--i) * 0.08s);
-}
-
-html.js .tagline[data-visible] .tagline-gain {
-  opacity: 1;
-  transform: none;
+  @media (hover: hover) {
+    .tagline-row:hover .tagline-arrow {
+      transform: translateX(4px);
+    }
+  }
 }
 
 .menu-button {
