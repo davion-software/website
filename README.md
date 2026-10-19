@@ -56,7 +56,7 @@ npm run test:copy
 
 ## Social image
 
-`public/og.png` (1200×630) is generated from `scripts/og/og.html`, which uses `src/assets/mark.webp` and the bundled Inter file in `scripts/og/fonts`. Regenerate it with Chrome after editing the page:
+`public/og.png` (1200×630) is generated from `scripts/og/og.html`, which uses `src/assets/mark.svg` and the bundled Inter file in `scripts/og/fonts`. Regenerate it with Chrome after editing the page:
 
 ```bash
 "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome" --headless=new --hide-scrollbars \

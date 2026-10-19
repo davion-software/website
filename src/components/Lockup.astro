@@ -1,6 +1,5 @@
 ---
-import { Image } from "astro:assets";
-import mark from "../assets/mark.webp";
+import Mark from "../assets/mark.svg";
 import { brand } from "../content/home";
 
 interface Props {
@@ -11,14 +10,7 @@ const { href = "/" } = Astro.props;
 ---
 
 <a href={href} aria-label={`${brand.name}, inicio`} class="inline-flex min-h-11 items-center gap-3 no-underline">
-  <Image
-    src={mark}
-    alt=""
-    width={36}
-    height={36}
-    densities={[1, 2]}
-    class="size-9 shrink-0"
-  />
+  <Mark aria-hidden="true" focusable="false" width={36} height={36} class="size-9 shrink-0" />
   <span class="flex flex-col leading-none">
     <span class="font-medium tracking-tight text-ink">{brand.lockupWordmark}</span>{" "}
     <span class="mt-1 text-sm font-medium tracking-[0.28em] text-accent">
