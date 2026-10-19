@@ -3,7 +3,6 @@ import Button from "../components/Button.astro";
 import CapabilityIconGlyph from "../components/CapabilityIconGlyph.astro";
 import FaqList from "../components/FaqList.astro";
 import Founder from "../components/Founder.astro";
-import HeroVisual from "../components/HeroVisual.astro";
 import Layout from "../layouts/Layout.astro";
 import Projects from "../components/Projects.astro";
 import Section from "../components/Section.astro";
@@ -73,53 +72,46 @@ const jsonLd = {
   <script is:inline type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
 
   <Section tone="base" compact>
-    <div
-      class="grid items-center gap-8 pt-8 pb-12 md:gap-12 md:pt-12 md:pb-16 lg:grid-cols-[minmax(0,1fr)_30rem] lg:gap-8 lg:py-16 xl:-mr-[min(6rem,calc((100vw-68rem)/2-1rem))] xl:grid-cols-[minmax(0,1fr)_31rem]"
-    >
-      <div class="flex flex-col">
-        <p class="flex items-center gap-2 text-sm text-ink-tertiary">
-          <span aria-hidden="true" class="inline-block size-2 rounded-full bg-accent"></span>
-          {home.availability}
-        </p>
-        <h1
-          class="mt-6 flex max-w-2xl flex-col gap-3 text-title leading-none font-medium tracking-tight lg:max-w-none xl:text-display"
-        >
-          <span class="text-balance">{home.heroLead}</span>
-          <span class="text-balance text-ink-secondary">{home.heroTail}</span>
-        </h1>
-        <p class="mt-6 max-w-xl text-lg text-pretty text-ink-secondary">
-          {home.oneLiner}
-        </p>
-        <div class="mt-8 flex flex-col gap-3 sm:flex-row lg:flex-col lg:items-start xl:flex-row">
-          {
-            links.calendar ? (
-              <>
-                <Button variant="primary" href={links.calendar} rel="noopener noreferrer" target="_blank">
-                  {home.primaryCta}
-                </Button>
-                <Button variant="secondary" href={links.whatsappDiagnostic} rel="noopener noreferrer" target="_blank">
-                  {home.whatsappCta}
-                </Button>
-              </>
-            ) : (
-              <>
-                <Button variant="primary" href={links.whatsappDiagnostic} rel="noopener noreferrer" target="_blank">
-                  {home.primaryCta}
-                </Button>
-                <Button variant="secondary" href="#capacidades">
-                  {home.capabilitiesCta}
-                </Button>
-              </>
-            )
-          }
-        </div>
-        <p class="mt-4 max-w-xl text-sm text-pretty text-ink-tertiary">
-          {home.heroProof}
-        </p>
+    <div class="flex flex-col pt-8 pb-12 md:pt-16 md:pb-24">
+      <p class="flex items-center gap-2 text-sm text-ink-tertiary">
+        <span aria-hidden="true" class="inline-block size-2 rounded-full bg-accent"></span>
+        {home.availability}
+      </p>
+      <h1
+        class="mt-6 flex max-w-5xl flex-col gap-3 text-title leading-none font-medium tracking-tight md:text-display lg:text-hero"
+      >
+        <span class="text-balance">{home.heroLead}</span>
+        <span class="text-balance text-ink-secondary">{home.heroTail}</span>
+      </h1>
+      <p class="mt-8 max-w-xl text-lg text-pretty text-ink-secondary">
+        {home.oneLiner}
+      </p>
+      <div class="mt-8 flex flex-col gap-3 sm:flex-row">
+        {
+          links.calendar ? (
+            <>
+              <Button variant="primary" href={links.calendar} rel="noopener noreferrer" target="_blank">
+                {home.primaryCta}
+              </Button>
+              <Button variant="secondary" href={links.whatsappDiagnostic} rel="noopener noreferrer" target="_blank">
+                {home.whatsappCta}
+              </Button>
+            </>
+          ) : (
+            <>
+              <Button variant="primary" href={links.whatsappDiagnostic} rel="noopener noreferrer" target="_blank">
+                {home.primaryCta}
+              </Button>
+              <Button variant="secondary" href="#capacidades">
+                {home.capabilitiesCta}
+              </Button>
+            </>
+          )
+        }
       </div>
-      <div>
-        <HeroVisual />
-      </div>
+      <p class="mt-4 max-w-xl text-sm text-pretty text-ink-tertiary">
+        {home.heroProof}
+      </p>
     </div>
   </Section>
 

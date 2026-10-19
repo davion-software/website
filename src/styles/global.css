@@ -23,8 +23,9 @@
  * Tailwind steps 1 / 2 / 3 / 4 / 6 / 8 / 12 / 16 / 24. Use no other steps for
  * padding, margin or gap. Section rhythm: py-16 on mobile, md:py-24 from 768px.
  *
- * Type scale (px): sm 14 / base 16 / lg 18 / heading 24 / title 36 / display 56.
- * Utilities: text-sm, text-base, text-lg, text-heading, text-title, text-display.
+ * Type scale (px): sm 14 / base 16 / lg 18 / heading 24 / title 36 / display 56 / hero 72.
+ * Utilities: text-sm, text-base, text-lg, text-heading, text-title, text-display, text-hero.
+ * text-hero is reserved for the home h1.
  * Responsive sizes move only between these steps.
  */
 
@@ -79,6 +80,8 @@
   --text-title--line-height: 1.1;
   --text-display: 3.5rem;
   --text-display--line-height: 1.05;
+  --text-hero: 4.5rem;
+  --text-hero--line-height: 1;
 
   --ease-out-quart: cubic-bezier(0.23, 1, 0.32, 1);
   --ease-in-out-quart: cubic-bezier(0.77, 0, 0.175, 1);
